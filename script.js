@@ -38,6 +38,9 @@ function initSubscription() {
     const emailInput = document.getElementById('emailInput');
     const message = document.getElementById('subscriptionMessage');
 
+    if (!form || !emailInput || !message) {
+        return;
+    }
     form.addEventListener('submit', function(e) {
         e.preventDefault();
         
