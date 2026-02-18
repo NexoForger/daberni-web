@@ -176,7 +176,7 @@ body {
     opacity: 0.5;
 }
 
-.taxi-icon {
+.motorbike-icon {
     width: 100px;
     height: 100px;
     filter: drop-shadow(0 0 20px rgba(255, 215, 0, 0.5));
@@ -690,7 +690,7 @@ body {
         height: 120px;
     }
 
-    .taxi-icon {
+    .motorbike-icon {
         width: 80px;
         height: 80px;
     }
