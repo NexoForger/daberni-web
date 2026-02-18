@@ -163,8 +163,3 @@ document.addEventListener('DOMContentLoaded', () => {
     console.log('%c🚖 Daberni - Coming Soon! ', 'background: #FFD700; color: #000; font-size: 20px; padding: 10px; font-weight: bold;');
     console.log('%cWe\'re building something amazing for Lebanon! 🇱🇧', 'font-size: 14px; color: #ED1C24;');
 });
-
-// Prevent form resubmission on page reload
-if (window.history.replaceState) {
-    window.history.replaceState(null, null, window.location.href);
-}
