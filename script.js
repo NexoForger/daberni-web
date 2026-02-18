@@ -84,11 +84,11 @@ function initSubscription() {
 // Add parallax effect to floating elements
 function initParallax() {
     const floatItems = document.querySelectorAll('.float-item');
+    let ticking = false;
+    let mouseX = 0;
+    let mouseY = 0;
     
-    document.addEventListener('mousemove', (e) => {
-        const mouseX = e.clientX / window.innerWidth;
-        const mouseY = e.clientY / window.innerHeight;
-        
+    function updateParallax() {
         floatItems.forEach((item, index) => {
             const speed = (index + 1) * 0.5;
             const x = (mouseX - 0.5) * speed * 50;
@@ -96,6 +96,17 @@ function initParallax() {
             
             item.style.transform = `translate(${x}px, ${y}px)`;
         });
+        ticking = false;
+    }
+    
+    document.addEventListener('mousemove', (e) => {
+        mouseX = e.clientX / window.innerWidth;
+        mouseY = e.clientY / window.innerHeight;
+        
+        if (!ticking) {
+            requestAnimationFrame(updateParallax);
+            ticking = true;
+        }
     });
 }
 
