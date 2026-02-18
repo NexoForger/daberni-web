@@ -2,7 +2,7 @@
 function initCountdown() {
     // Set launch date (30 days from now)
     const launchDate = new Date();
-    launchDate.setDate(launchDate.getDate() + 30);
+    launchDate.setDate(launchDate.getDate() + 60);
     launchDate.setHours(0, 0, 0, 0);
 
     function updateCountdown() {
