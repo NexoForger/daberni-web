@@ -84,6 +84,91 @@ function initSubscription() {
     }
 }
 
+// Driver Application Form Handler
+function initDriverApplication() {
+    const form = document.getElementById('driverApplicationForm');
+    const message = document.getElementById('driverFormMessage');
+
+    if (!form || !message) {
+        return;
+    }
+
+    form.addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        // Get form data
+        const formData = new FormData(form);
+        const data = {
+            name: formData.get('driverName'),
+            phone: formData.get('driverPhone'),
+            email: formData.get('driverEmail'),
+            city: formData.get('driverCity'),
+            vehicleType: formData.get('vehicleType'),
+            vehicleYear: formData.get('vehicleYear'),
+            licenseNumber: formData.get('licenseNumber'),
+            yearsExperience: formData.get('yearsExperience'),
+            platforms: formData.getAll('platforms'),
+            availability: formData.get('availability'),
+            additionalInfo: formData.get('additionalInfo'),
+            terms: formData.get('terms')
+        };
+
+        // Validate required fields
+        if (!data.name || !data.phone || !data.email || !data.city || 
+            !data.vehicleType || !data.vehicleYear || !data.licenseNumber || 
+            !data.yearsExperience || !data.availability || !data.terms) {
+            showDriverMessage('Please fill in all required fields', 'error');
+            return;
+        }
+
+        // Validate email
+        if (!isValidEmail(data.email)) {
+            showDriverMessage('Please enter a valid email address', 'error');
+            return;
+        }
+
+        // Validate phone (basic Lebanese number validation)
+        const phonePattern = /^(\+961|00961|961)?[0-9]{7,8}$/;
+        const cleanPhone = data.phone.replace(/[\s-]/g, '');
+        if (!phonePattern.test(cleanPhone)) {
+            showDriverMessage('Please enter a valid Lebanese phone number', 'error');
+            return;
+        }
+
+        // Simulate application submission (in real app, this would call an API)
+        showDriverMessage('Thank you for your application! We will review it and contact you soon. 🚀', 'success');
+        
+        // Store application in localStorage for demo purposes
+        const applications = JSON.parse(localStorage.getItem('driverApplications') || '[]');
+        applications.push({
+            ...data,
+            submittedAt: new Date().toISOString()
+        });
+        localStorage.setItem('driverApplications', JSON.stringify(applications));
+        
+        // Reset form
+        form.reset();
+    });
+
+    function showDriverMessage(text, type) {
+        message.textContent = text;
+        message.className = `form-message ${type}`;
+        
+        // Scroll to message
+        message.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        
+        setTimeout(() => {
+            message.textContent = '';
+            message.className = 'form-message';
+        }, 8000);
+    }
+
+    function isValidEmail(email) {
+        const re = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+        return re.test(email);
+    }
+}
+
 // Add parallax effect to floating elements
 function initParallax() {
     const floatItems = document.querySelectorAll('.float-item');
@@ -161,6 +246,7 @@ function initScrollAnimations() {
 document.addEventListener('DOMContentLoaded', () => {
     initCountdown();
     initSubscription();
+    initDriverApplication();
     initParallax();
     initSmoothScroll();
     initScrollAnimations();

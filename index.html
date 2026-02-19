@@ -159,32 +159,32 @@
                 <h3 class="section-title">Why Choose Daberni?</h3>
                 <div class="guarantees-grid">
                     <div class="guarantee-card">
-                        <div class="guarantee-icon">✓</div>
+                        <div class="guarantee-icon" aria-hidden="true">✓</div>
                         <h4>Licensed Drivers</h4>
                         <p>All our drivers are professionally trained and licensed</p>
                     </div>
                     <div class="guarantee-card">
-                        <div class="guarantee-icon">🛡️</div>
+                        <div class="guarantee-icon" aria-hidden="true">🛡️</div>
                         <h4>Safe & Secure</h4>
                         <p>Your safety is our top priority with insurance coverage</p>
                     </div>
                     <div class="guarantee-card">
-                        <div class="guarantee-icon">⚡</div>
+                        <div class="guarantee-icon" aria-hidden="true">⚡</div>
                         <h4>Fast Service</h4>
                         <p>Average pickup time under 5 minutes</p>
                     </div>
                     <div class="guarantee-card">
-                        <div class="guarantee-icon">💰</div>
+                        <div class="guarantee-icon" aria-hidden="true">💰</div>
                         <h4>Best Prices</h4>
                         <p>Transparent pricing, no hidden fees</p>
                     </div>
                     <div class="guarantee-card">
-                        <div class="guarantee-icon">📞</div>
+                        <div class="guarantee-icon" aria-hidden="true">📞</div>
                         <h4>24/7 Support</h4>
                         <p>Customer support available round the clock</p>
                     </div>
                     <div class="guarantee-card">
-                        <div class="guarantee-icon">⭐</div>
+                        <div class="guarantee-icon" aria-hidden="true">⭐</div>
                         <h4>Quality Guaranteed</h4>
                         <p>Satisfaction guaranteed or your money back</p>
                     </div>
@@ -220,25 +220,148 @@
                 <div class="steps-container">
                     <div class="step-card">
                         <div class="step-number">1</div>
-                        <div class="step-icon">📱</div>
+                        <div class="step-icon" aria-hidden="true">📱</div>
                         <h4>Book Your Ride</h4>
                         <p>Open the app and request a ride with just a few taps</p>
                     </div>
-                    <div class="step-arrow">→</div>
+                    <div class="step-arrow" aria-hidden="true">→</div>
                     <div class="step-card">
                         <div class="step-number">2</div>
-                        <div class="step-icon">🏍️</div>
+                        <div class="step-icon" aria-hidden="true">🏍️</div>
                         <h4>Get Matched</h4>
                         <p>We'll connect you with the nearest available driver</p>
                     </div>
-                    <div class="step-arrow">→</div>
+                    <div class="step-arrow" aria-hidden="true">→</div>
                     <div class="step-card">
                         <div class="step-number">3</div>
-                        <div class="step-icon">🎯</div>
+                        <div class="step-icon" aria-hidden="true">🎯</div>
                         <h4>Reach Destination</h4>
                         <p>Enjoy a safe, fast ride to your destination</p>
                     </div>
                 </div>
+            </div>
+
+            <!-- Driver Application Section -->
+            <div class="driver-application-section">
+                <h3 class="section-title">Join Our Team of Drivers</h3>
+                <p class="driver-intro">Be part of Lebanon's fastest-growing transportation network. Flexible hours, competitive earnings, and support every step of the way.</p>
+                
+                <form class="driver-application-form" id="driverApplicationForm">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="driverName">Full Name *</label>
+                            <input type="text" id="driverName" name="driverName" required placeholder="Enter your full name">
+                        </div>
+                        <div class="form-group">
+                            <label for="driverPhone">Phone Number *</label>
+                            <input type="tel" id="driverPhone" name="driverPhone" required placeholder="+961 XX XXX XXX">
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="driverEmail">Email Address *</label>
+                            <input type="email" id="driverEmail" name="driverEmail" required placeholder="your.email@example.com">
+                        </div>
+                        <div class="form-group">
+                            <label for="driverCity">City *</label>
+                            <input type="text" id="driverCity" name="driverCity" required placeholder="e.g., Beirut, Tripoli">
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="vehicleType">Type of Vehicle *</label>
+                            <select id="vehicleType" name="vehicleType" required>
+                                <option value="">Select vehicle type</option>
+                                <option value="scooter">Scooter</option>
+                                <option value="motorcycle-small">Motorcycle (Small - up to 125cc)</option>
+                                <option value="motorcycle-medium">Motorcycle (Medium - 126-400cc)</option>
+                                <option value="motorcycle-large">Motorcycle (Large - 400cc+)</option>
+                                <option value="bicycle">Bicycle</option>
+                                <option value="car">Car</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="vehicleYear">Vehicle Year *</label>
+                            <input type="number" id="vehicleYear" name="vehicleYear" required placeholder="e.g., 2020" min="1990" max="2026">
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="licenseNumber">Driver's License Number *</label>
+                            <input type="text" id="licenseNumber" name="licenseNumber" required placeholder="Enter license number">
+                        </div>
+                        <div class="form-group">
+                            <label for="yearsExperience">Years of Driving Experience *</label>
+                            <select id="yearsExperience" name="yearsExperience" required>
+                                <option value="">Select experience</option>
+                                <option value="less-than-1">Less than 1 year</option>
+                                <option value="1-2">1-2 years</option>
+                                <option value="3-5">3-5 years</option>
+                                <option value="6-10">6-10 years</option>
+                                <option value="more-than-10">More than 10 years</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="otherPlatforms">Other Platforms You Currently Use</label>
+                        <div class="checkbox-group">
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="platforms" value="uber"> Uber
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="platforms" value="careem"> Careem
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="platforms" value="toters"> Toters
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="platforms" value="deliveroo"> Deliveroo
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="platforms" value="other"> Other
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="platforms" value="none"> None
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="availability">When can you start? *</label>
+                        <select id="availability" name="availability" required>
+                            <option value="">Select availability</option>
+                            <option value="immediately">Immediately</option>
+                            <option value="within-week">Within a week</option>
+                            <option value="within-month">Within a month</option>
+                            <option value="flexible">Flexible</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="additionalInfo">Additional Information (Optional)</label>
+                        <textarea id="additionalInfo" name="additionalInfo" rows="4" placeholder="Tell us anything else you'd like us to know..."></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="checkbox-label terms-checkbox">
+                            <input type="checkbox" name="terms" required>
+                            I agree to the terms and conditions and confirm that all information provided is accurate *
+                        </label>
+                    </div>
+
+                    <button type="submit" class="driver-submit-btn">
+                        <span>Submit Application</span>
+                        <svg class="arrow-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M5 12h14M12 5l7 7-7 7"/>
+                        </svg>
+                    </button>
+
+                    <p class="form-message" id="driverFormMessage"></p>
+                </form>
             </div>
         </div>
 
