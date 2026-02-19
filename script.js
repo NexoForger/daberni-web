@@ -167,7 +167,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Add console message for developers (only in local/development environments)
     if (window && window.location && (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1')) {
-        console.log('%c🚖 Daberni - Coming Soon! ', 'background: #FFD700; color: #000; font-size: 20px; padding: 10px; font-weight: bold;');
-        console.log('%cWe\'re building something amazing for Lebanon! 🇱🇧', 'font-size: 14px; color: #ED1C24;');
+        console.log('%c🚖 Daberni - Coming Soon! ', 'background: #26C6DA; color: #000; font-size: 20px; padding: 10px; font-weight: bold;');
+        console.log('%cWe\'re building something amazing for Lebanon! 🇱🇧', 'font-size: 14px; color: #1E88E5;');
     }
 });

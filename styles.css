@@ -6,9 +6,9 @@
 }
 
 :root {
-    --primary-red: #1E88E5;
+    --primary-color: #1E88E5;
     --primary-white: #FFFFFF;
-    --secondary-gold: #26C6DA;
+    --secondary-color: #26C6DA;
     --dark-bg: #0a0a0a;
     --gradient-start: #0a1a1a;
     --gradient-end: #142d2d;
@@ -170,7 +170,7 @@ body {
     position: absolute;
     width: 100%;
     height: 100%;
-    border: 3px solid var(--secondary-gold);
+    border: 3px solid var(--secondary-color);
     border-radius: 50%;
     animation: rotate 10s linear infinite;
     opacity: 0.5;
@@ -210,7 +210,7 @@ body {
 
 .brand-letter {
     display: inline-block;
-    background: linear-gradient(135deg, var(--primary-red), var(--secondary-gold));
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -256,8 +256,8 @@ body {
     margin: 0 0.5rem;
     background: linear-gradient(90deg, 
         var(--primary-white) 0%, 
-        var(--primary-red) 50%, 
-        var(--secondary-gold) 100%);
+        var(--primary-color) 50%, 
+        var(--secondary-color) 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -310,14 +310,14 @@ body {
 
 .countdown-item:hover {
     transform: translateY(-10px) scale(1.05);
-    border-color: var(--secondary-gold);
+    border-color: var(--secondary-color);
     box-shadow: 0 10px 30px rgba(255, 215, 0, 0.3);
 }
 
 .countdown-value {
     font-size: 3rem;
     font-weight: 800;
-    background: linear-gradient(135deg, var(--primary-red), var(--secondary-gold));
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -345,7 +345,7 @@ body {
 .subscription-title {
     font-size: 1.8rem;
     margin-bottom: 1.5rem;
-    color: var(--secondary-gold);
+    color: var(--secondary-color);
 }
 
 .subscription-form {
@@ -376,7 +376,7 @@ body {
 }
 
 .email-input:focus {
-    border-color: var(--secondary-gold);
+    border-color: var(--secondary-color);
     box-shadow: 0 0 20px rgba(255, 215, 0, 0.3);
     background: rgba(255, 255, 255, 0.08);
 }
@@ -385,7 +385,7 @@ body {
     padding: 1rem 2.5rem;
     font-size: 1rem;
     font-weight: 600;
-    background: linear-gradient(135deg, var(--primary-red), var(--secondary-gold));
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
     color: white;
     border: none;
     border-radius: 50px;
@@ -454,7 +454,7 @@ body {
 
 .feature-card:hover {
     transform: translateY(-10px);
-    border-color: var(--secondary-gold);
+    border-color: var(--secondary-color);
     background: rgba(255, 255, 255, 0.05);
     box-shadow: 0 10px 30px rgba(255, 215, 0, 0.2);
 }
@@ -523,8 +523,8 @@ body {
 }
 
 .social-link:hover {
-    background: var(--secondary-gold);
-    border-color: var(--secondary-gold);
+    background: var(--secondary-color);
+    border-color: var(--secondary-color);
     transform: translateY(-5px) rotate(360deg);
     box-shadow: 0 10px 20px rgba(255, 215, 0, 0.4);
 }
