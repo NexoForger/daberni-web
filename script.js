@@ -1,3 +1,9 @@
+// Shared utility functions
+function isValidEmail(email) {
+    const re = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    return re.test(email);
+}
+
 // Countdown Timer
 function initCountdown() {
     // Set launch date (30 days from now)
@@ -76,11 +82,6 @@ function initSubscription() {
             message.textContent = '';
             message.className = 'subscription-message';
         }, 5000);
-    }
-
-    function isValidEmail(email) {
-        const re = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-        return re.test(email);
     }
 }
 
@@ -161,11 +162,6 @@ function initDriverApplication() {
             message.textContent = '';
             message.className = 'form-message';
         }, 8000);
-    }
-
-    function isValidEmail(email) {
-        const re = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-        return re.test(email);
     }
 }
 
