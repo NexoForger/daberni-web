@@ -8,8 +8,9 @@ The Daberni website stores all form submissions as JSON files in the GitHub repo
 
 1. **JSON data files** (`data/subscribers.json` and `data/applications.json`) live in the repository.
 2. **Reading**: Data is fetched via the GitHub Contents API (works for public repos without authentication).
-3. **Writing**: New submissions are appended to the JSON files via the GitHub Contents API, which requires a Personal Access Token.
-4. **Admin panel**: The admin page (`admin.html`) includes a settings section where the repository owner, name, branch, and token are configured. This configuration is stored in `localStorage` (only the config, not the data).
+3. **Writing (public visitors)**: Form submissions are sent to server-side Cloudflare Pages Functions (`/api/subscribe` and `/api/apply`) that write to the repository using a `GITHUB_TOKEN` environment variable. No client-side authentication is required.
+4. **Writing (admin)**: If a Personal Access Token is configured in the admin panel, writes go directly to the GitHub Contents API from the browser (legacy/admin path).
+5. **Admin panel**: The admin page (`admin.html`) includes a settings section where the repository owner, name, branch, and token are configured. This configuration is stored in `localStorage` (only the config, not the data).
 
 ## What Gets Stored
 
@@ -40,7 +41,16 @@ When drivers submit applications, the following data is stored:
 2. Generate a new token with the **`repo`** scope (or `public_repo` for public repositories).
 3. Copy the token.
 
-### 2. Configure the Admin Panel
+### 2. Set the Cloudflare Pages Environment Variable
+This is required so that public visitors can submit forms without any client-side token.
+
+1. Go to the **Cloudflare Dashboard → Pages → daberni-web → Settings → Environment variables**.
+2. Add a variable named **`GITHUB_TOKEN`** with the Personal Access Token as its value.
+3. Redeploy the site so the variable takes effect.
+
+### 3. (Optional) Configure the Admin Panel
+If you also want admin-panel direct writes:
+
 1. Navigate to `/admin.html`.
 2. In the **GitHub Storage Settings** section, enter:
    - **Repository Owner** (e.g., `NexoForger`)
@@ -116,10 +126,12 @@ The exported CSV files can be opened in Excel, Google Sheets, or any spreadsheet
 
 ### Architecture
 
-- **`dataStore.js`**: Shared module that handles all read/write operations via the GitHub Contents API.
+- **`dataStore.js`**: Shared client-side module. Routes form submissions to the server-side API when no token is configured locally, or writes directly via the GitHub Contents API when an admin token is present.
+- **`functions/api/subscribe.js`**: Cloudflare Pages Function that handles public email subscriptions.
+- **`functions/api/apply.js`**: Cloudflare Pages Function that handles public driver applications.
 - **`data/subscribers.json`**: JSON file storing subscriber data.
 - **`data/applications.json`**: JSON file storing driver application data.
-- **GitHub Contents API**: Used to read and update the JSON files. Writing requires a Personal Access Token.
+- **GitHub Contents API**: Used to read and update the JSON files. Server-side writes use the `GITHUB_TOKEN` environment variable.
 
 ### Data Persistence
 
@@ -136,9 +148,10 @@ Data persists in the repository and is available across:
 
 ### Current Implementation
 - Data is stored in JSON files in the GitHub repository
-- A Personal Access Token is required for write operations
-- The token is stored in `localStorage` on the admin's browser only
-- The token is never committed to source code
+- Public form submissions go through server-side Cloudflare Pages Functions
+- The `GITHUB_TOKEN` is stored as a Cloudflare Pages environment variable (never exposed to the browser)
+- No authentication is required for visitors to submit emails or applications
+- Admin panel uses a Personal Access Token stored in `localStorage`
 
 ### Recommended for Production
 
@@ -158,10 +171,10 @@ For a production environment, consider:
 ## Troubleshooting
 
 ### Data Not Saving
-1. Ensure the GitHub token is configured in the admin panel settings
+1. Ensure the `GITHUB_TOKEN` environment variable is set in Cloudflare Pages
 2. Verify the token has the correct permissions (`repo` or `public_repo` scope)
 3. Check the browser console for API error messages
-4. Ensure the repository owner, name, and branch are correct
+4. If using the admin panel directly, ensure the GitHub settings are configured in the admin panel
 
 ### Can't See Data in Admin Panel
 1. Ensure you're navigating to `/admin.html`
