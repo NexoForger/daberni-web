@@ -155,8 +155,12 @@ function initDriverApplication() {
         message.textContent = text;
         message.className = `form-message ${type}`;
         
-        // Scroll to message
-        message.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        // Scroll to message (respecting user's motion preferences)
+        const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        message.scrollIntoView({ 
+            behavior: prefersReducedMotion ? 'auto' : 'smooth', 
+            block: 'nearest' 
+        });
         
         setTimeout(() => {
             message.textContent = '';
@@ -207,8 +211,9 @@ function initSmoothScroll() {
             const target = document.querySelector(href);
             if (target) {
                 e.preventDefault();
+                const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
                 target.scrollIntoView({
-                    behavior: 'smooth',
+                    behavior: prefersReducedMotion ? 'auto' : 'smooth',
                     block: 'start'
                 });
             }
