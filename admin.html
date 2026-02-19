@@ -196,6 +196,21 @@
             font-size: 0.85rem;
         }
         
+        .settings-input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1rem;
+            box-sizing: border-box;
+        }
+        
+        .settings-input:focus {
+            outline: none;
+            border-color: #26C6DA;
+            box-shadow: 0 0 0 2px rgba(38, 198, 218, 0.2);
+        }
+
         @media (max-width: 768px) {
             .admin-container {
                 padding: 20px;
@@ -268,26 +283,58 @@
             <div id="applicationsTable"></div>
         </div>
         
+        <!-- GitHub Settings Section -->
+        <div class="section" id="settingsSection">
+            <div class="section-header">
+                <h2>⚙️ GitHub Storage Settings</h2>
+            </div>
+            <p style="color:#666; margin-bottom:15px;">Configure the GitHub repository and personal access token used to store form data in JSON files.</p>
+            <p style="color:#e65100; font-size:0.9rem; margin-bottom:15px;">⚠️ The token is stored in your browser's local storage. Only configure this on trusted devices.</p>
+            <div style="display:grid; grid-template-columns:1fr 1fr; gap:15px; margin-bottom:15px;">
+                <div>
+                    <label style="display:block; font-weight:600; margin-bottom:5px;">Repository Owner</label>
+                    <input type="text" id="cfgOwner" class="settings-input" placeholder="e.g. NexoForger">
+                </div>
+                <div>
+                    <label style="display:block; font-weight:600; margin-bottom:5px;">Repository Name</label>
+                    <input type="text" id="cfgRepo" class="settings-input" placeholder="e.g. daberni-web">
+                </div>
+            </div>
+            <div style="display:grid; grid-template-columns:1fr 1fr; gap:15px; margin-bottom:15px;">
+                <div>
+                    <label style="display:block; font-weight:600; margin-bottom:5px;">Branch</label>
+                    <input type="text" id="cfgBranch" class="settings-input" placeholder="e.g. main">
+                </div>
+                <div>
+                    <label style="display:block; font-weight:600; margin-bottom:5px;">Personal Access Token</label>
+                    <input type="password" id="cfgToken" class="settings-input" placeholder="ghp_...">
+                </div>
+            </div>
+            <button class="btn btn-primary" onclick="saveSettings()">💾 Save Settings</button>
+            <span id="settingsMessage" style="margin-left:15px; font-weight:600;"></span>
+        </div>
+
         <!-- Back to Home -->
         <div style="text-align: center; margin-top: 40px;">
             <a href="index.html" class="btn btn-secondary">← Back to Home</a>
         </div>
     </div>
     
+    <script src="dataStore.js"></script>
     <script>
-        // Load and display data
-        function loadData() {
-            loadSubscribers();
-            loadApplications();
+        // Load and display data from repo JSON files
+        async function loadData() {
+            await loadSubscribers();
+            await loadApplications();
+            loadSettings();
         }
         
-        function loadSubscribers() {
-            const subscribers = JSON.parse(localStorage.getItem('subscribers') || '[]');
-            const subscribersData = JSON.parse(localStorage.getItem('subscribersData') || '[]');
+        async function loadSubscribers() {
+            var subscribers = await DataStore.getSubscribers();
             
             document.getElementById('subscriberCount').textContent = subscribers.length;
             
-            const container = document.getElementById('subscribersTable');
+            var container = document.getElementById('subscribersTable');
             
             if (subscribers.length === 0) {
                 container.innerHTML = `
@@ -302,7 +349,7 @@
                 return;
             }
             
-            let html = `
+            var html = `
                 <table class="data-table">
                     <thead>
                         <tr>
@@ -314,15 +361,13 @@
                     <tbody>
             `;
             
-            subscribers.forEach((email, index) => {
-                const data = subscribersData.find(s => s.email === email) || {};
-                const timestamp = data.timestamp || 'N/A';
-                const formattedDate = timestamp !== 'N/A' ? new Date(timestamp).toLocaleString() : 'N/A';
+            subscribers.forEach(function(sub, index) {
+                var formattedDate = sub.timestamp ? new Date(sub.timestamp).toLocaleString() : 'N/A';
                 
                 html += `
                     <tr>
                         <td>${index + 1}</td>
-                        <td>${email}</td>
+                        <td>${sub.email}</td>
                         <td>${formattedDate}</td>
                     </tr>
                 `;
@@ -336,12 +381,12 @@
             container.innerHTML = html;
         }
         
-        function loadApplications() {
-            const applications = JSON.parse(localStorage.getItem('driverApplications') || '[]');
+        async function loadApplications() {
+            var applications = await DataStore.getApplications();
             
             document.getElementById('applicationCount').textContent = applications.length;
             
-            const container = document.getElementById('applicationsTable');
+            var container = document.getElementById('applicationsTable');
             
             if (applications.length === 0) {
                 container.innerHTML = `
@@ -356,7 +401,7 @@
                 return;
             }
             
-            let html = `
+            var html = `
                 <table class="data-table">
                     <thead>
                         <tr>
@@ -375,10 +420,10 @@
                     <tbody>
             `;
             
-            applications.forEach((app, index) => {
-                const formattedDate = app.submittedAt ? new Date(app.submittedAt).toLocaleString() : 'N/A';
-                const platforms = app.platforms && app.platforms.length > 0 
-                    ? app.platforms.map(p => `<span class="platform-tag">${p}</span>`).join(' ')
+            applications.forEach(function(app, index) {
+                var formattedDate = app.submittedAt ? new Date(app.submittedAt).toLocaleString() : 'N/A';
+                var platforms = app.platforms && app.platforms.length > 0 
+                    ? app.platforms.map(function(p) { return '<span class="platform-tag">' + p + '</span>'; }).join(' ')
                     : '<span class="platform-tag">None</span>';
                 
                 html += `
@@ -406,50 +451,47 @@
         }
         
         // Export functions
-        function exportSubscribers() {
-            const subscribers = JSON.parse(localStorage.getItem('subscribers') || '[]');
-            const subscribersData = JSON.parse(localStorage.getItem('subscribersData') || '[]');
+        async function exportSubscribers() {
+            var subscribers = await DataStore.getSubscribers();
             
             if (subscribers.length === 0) {
                 alert('No subscribers to export');
                 return;
             }
             
-            let csv = 'Email,Subscribed At\n';
-            subscribers.forEach(email => {
-                const data = subscribersData.find(s => s.email === email) || {};
-                const timestamp = data.timestamp || '';
-                const formattedDate = timestamp ? new Date(timestamp).toISOString() : '';
-                csv += `"${email}","${formattedDate}"\n`;
+            var csv = 'Email,Subscribed At\n';
+            subscribers.forEach(function(sub) {
+                var formattedDate = sub.timestamp ? new Date(sub.timestamp).toISOString() : '';
+                csv += '"' + sub.email + '","' + formattedDate + '"\n';
             });
             
             downloadCSV(csv, 'daberni-subscribers.csv');
         }
         
-        function exportApplications() {
-            const applications = JSON.parse(localStorage.getItem('driverApplications') || '[]');
+        async function exportApplications() {
+            var applications = await DataStore.getApplications();
             
             if (applications.length === 0) {
                 alert('No applications to export');
                 return;
             }
             
-            let csv = 'Name,Email,Phone,City,Vehicle Type,Vehicle Year,License Number,Years Experience,Platforms,Availability,Additional Info,Submitted At\n';
+            var csv = 'Name,Email,Phone,City,Vehicle Type,Vehicle Year,License Number,Years Experience,Platforms,Availability,Additional Info,Submitted At\n';
             
-            applications.forEach(app => {
-                const platforms = app.platforms ? app.platforms.join('; ') : '';
-                const submittedAt = app.submittedAt ? new Date(app.submittedAt).toISOString() : '';
+            applications.forEach(function(app) {
+                var platforms = app.platforms ? app.platforms.join('; ') : '';
+                var submittedAt = app.submittedAt ? new Date(app.submittedAt).toISOString() : '';
                 
-                csv += `"${app.name || ''}","${app.email || ''}","${app.phone || ''}","${app.city || ''}","${app.vehicleType || ''}","${app.vehicleYear || ''}","${app.licenseNumber || ''}","${app.yearsExperience || ''}","${platforms}","${app.availability || ''}","${(app.additionalInfo || '').replace(/"/g, '""')}","${submittedAt}"\n`;
+                csv += '"' + (app.name || '') + '","' + (app.email || '') + '","' + (app.phone || '') + '","' + (app.city || '') + '","' + (app.vehicleType || '') + '","' + (app.vehicleYear || '') + '","' + (app.licenseNumber || '') + '","' + (app.yearsExperience || '') + '","' + platforms + '","' + (app.availability || '') + '","' + ((app.additionalInfo || '').replace(/"/g, '""')) + '","' + submittedAt + '"\n';
             });
             
             downloadCSV(csv, 'daberni-driver-applications.csv');
         }
         
         function downloadCSV(csv, filename) {
-            const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
-            const link = document.createElement('a');
-            const url = URL.createObjectURL(blob);
+            var blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+            var link = document.createElement('a');
+            var url = URL.createObjectURL(blob);
             
             link.setAttribute('href', url);
             link.setAttribute('download', filename);
@@ -461,21 +503,50 @@
         }
         
         // Clear functions
-        function clearSubscribers() {
+        async function clearSubscribers() {
             if (confirm('Are you sure you want to delete all subscribers? This action cannot be undone.')) {
-                localStorage.removeItem('subscribers');
-                localStorage.removeItem('subscribersData');
-                loadData();
-                alert('All subscribers have been deleted');
+                try {
+                    await DataStore.writeData('subscribers.json', []);
+                    await loadData();
+                    alert('All subscribers have been deleted');
+                } catch (error) {
+                    alert('Error clearing subscribers: ' + error.message);
+                }
             }
         }
         
-        function clearApplications() {
+        async function clearApplications() {
             if (confirm('Are you sure you want to delete all driver applications? This action cannot be undone.')) {
-                localStorage.removeItem('driverApplications');
-                loadData();
-                alert('All driver applications have been deleted');
+                try {
+                    await DataStore.writeData('applications.json', []);
+                    await loadData();
+                    alert('All driver applications have been deleted');
+                } catch (error) {
+                    alert('Error clearing applications: ' + error.message);
+                }
             }
+        }
+
+        // Settings functions
+        function loadSettings() {
+            var config = DataStore.getConfig();
+            document.getElementById('cfgOwner').value = config.owner || '';
+            document.getElementById('cfgRepo').value = config.repo || '';
+            document.getElementById('cfgBranch').value = config.branch || '';
+            document.getElementById('cfgToken').value = config.token || '';
+        }
+
+        function saveSettings() {
+            DataStore.saveConfig({
+                owner: document.getElementById('cfgOwner').value.trim(),
+                repo: document.getElementById('cfgRepo').value.trim(),
+                branch: document.getElementById('cfgBranch').value.trim(),
+                token: document.getElementById('cfgToken').value.trim()
+            });
+            var msg = document.getElementById('settingsMessage');
+            msg.textContent = '✅ Settings saved!';
+            msg.style.color = '#2e7d32';
+            setTimeout(function() { msg.textContent = ''; }, 3000);
         }
         
         // Load data on page load
