@@ -2,7 +2,14 @@
 // GET  → list all subscribers
 // DELETE → clear all subscribers
 
+import { verifyAdmin } from './_auth.js';
+
 export async function onRequestGet(context) {
+    const auth = await verifyAdmin(context.request);
+    if (!auth.ok) {
+        return Response.json({ error: auth.error }, { status: auth.status });
+    }
+
     const db = context.env.DB;
     if (!db) {
         return Response.json({ error: 'Database not configured' }, { status: 500 });
@@ -20,6 +27,11 @@ export async function onRequestGet(context) {
 }
 
 export async function onRequestDelete(context) {
+    const auth = await verifyAdmin(context.request);
+    if (!auth.ok) {
+        return Response.json({ error: auth.error }, { status: auth.status });
+    }
+
     const db = context.env.DB;
     if (!db) {
         return Response.json({ error: 'Database not configured' }, { status: 500 });

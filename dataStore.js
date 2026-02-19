@@ -3,10 +3,22 @@
 // backed by a D1 (SQLite) database.
 
 var DataStore = (function () {
+    // Build headers for admin API calls, including the auth token if available
+    function adminHeaders() {
+        var headers = {};
+        try {
+            var session = JSON.parse(sessionStorage.getItem('daberniAdminAuth'));
+            if (session && session.token) {
+                headers['Authorization'] = 'Bearer ' + session.token;
+            }
+        } catch (e) { /* ignore */ }
+        return headers;
+    }
+
     // Convenience methods for subscribers
     async function getSubscribers() {
         try {
-            var response = await fetch('/api/admin/subscribers');
+            var response = await fetch('/api/admin/subscribers', { headers: adminHeaders() });
             if (!response.ok) {
                 console.warn('DataStore: Could not read subscribers (status ' + response.status + ')');
                 return [];
@@ -32,7 +44,7 @@ var DataStore = (function () {
     }
 
     async function clearSubscribers() {
-        var response = await fetch('/api/admin/subscribers', { method: 'DELETE' });
+        var response = await fetch('/api/admin/subscribers', { method: 'DELETE', headers: adminHeaders() });
         if (!response.ok) {
             var err = await response.json().catch(function () { return {}; });
             throw new Error(err.error || 'Failed to clear subscribers');
@@ -43,7 +55,7 @@ var DataStore = (function () {
     // Convenience methods for applications
     async function getApplications() {
         try {
-            var response = await fetch('/api/admin/applications');
+            var response = await fetch('/api/admin/applications', { headers: adminHeaders() });
             if (!response.ok) {
                 console.warn('DataStore: Could not read applications (status ' + response.status + ')');
                 return [];
@@ -69,7 +81,7 @@ var DataStore = (function () {
     }
 
     async function clearApplications() {
-        var response = await fetch('/api/admin/applications', { method: 'DELETE' });
+        var response = await fetch('/api/admin/applications', { method: 'DELETE', headers: adminHeaders() });
         if (!response.ok) {
             var err = await response.json().catch(function () { return {}; });
             throw new Error(err.error || 'Failed to clear applications');
