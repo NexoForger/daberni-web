@@ -1,63 +1,11 @@
 // Cloudflare Pages Function – POST /api/subscribe
-// Accepts { email } and appends the subscriber to data/subscribers.json
-// via the GitHub Contents API using a server-side GITHUB_TOKEN.
-
-const OWNER = 'NexoForger';
-const REPO  = 'daberni-web';
-const BRANCH = 'main';
-
-async function readGitHubJSON(token, filename) {
-    const url = `https://api.github.com/repos/${OWNER}/${REPO}/contents/data/${filename}?ref=${BRANCH}`;
-    const res = await fetch(url, {
-        headers: {
-            'Accept': 'application/vnd.github.v3+json',
-            'Authorization': `token ${token}`,
-            'User-Agent': 'daberni-web'
-        }
-    });
-    if (!res.ok) {
-        if (res.status === 404) return { data: [], sha: null };
-        throw new Error(`GitHub read error: ${res.status}`);
-    }
-    const file = await res.json();
-    const decoded = new TextDecoder().decode(
-        Uint8Array.from(atob(file.content.replace(/\n/g, '')), c => c.charCodeAt(0))
-    );
-    return { data: JSON.parse(decoded), sha: file.sha };
-}
-
-async function writeGitHubJSON(token, filename, data, sha) {
-    const url = `https://api.github.com/repos/${OWNER}/${REPO}/contents/data/${filename}`;
-    const jsonStr = JSON.stringify(data, null, 2) + '\n';
-    const encoded = btoa(String.fromCharCode.apply(null, new TextEncoder().encode(jsonStr)));
-    const body = {
-        message: `Update ${filename} via web form`,
-        content: encoded,
-        branch: BRANCH
-    };
-    if (sha) body.sha = sha;
-
-    const res = await fetch(url, {
-        method: 'PUT',
-        headers: {
-            'Authorization': `token ${token}`,
-            'Content-Type': 'application/json',
-            'Accept': 'application/vnd.github.v3+json',
-            'User-Agent': 'daberni-web'
-        },
-        body: JSON.stringify(body)
-    });
-    if (!res.ok) {
-        const err = await res.json().catch(() => ({}));
-        throw new Error(err.message || `GitHub write error: ${res.status}`);
-    }
-}
+// Accepts { email } and stores the subscriber in the D1 database.
 
 export async function onRequestPost(context) {
-    const token = context.env.GITHUB_TOKEN;
-    if (!token) {
+    const db = context.env.DB;
+    if (!db) {
         return Response.json(
-            { error: 'Server is not configured. Please set GITHUB_TOKEN.' },
+            { error: 'Server is not configured. Please bind a D1 database.' },
             { status: 500 }
         );
     }
@@ -75,19 +23,18 @@ export async function onRequestPost(context) {
     }
 
     try {
-        const { data: subscribers, sha } = await readGitHubJSON(token, 'subscribers.json');
+        const existing = await db.prepare(
+            'SELECT id FROM subscribers WHERE email = ?'
+        ).bind(body.email).first();
 
-        if (subscribers.some(s => s.email === body.email)) {
+        if (existing) {
             return Response.json({ success: false, reason: 'duplicate' });
         }
 
-        subscribers.push({
-            email: body.email,
-            timestamp: new Date().toISOString(),
-            source: 'website'
-        });
+        await db.prepare(
+            'INSERT INTO subscribers (email, timestamp, source) VALUES (?, ?, ?)'
+        ).bind(body.email, new Date().toISOString(), 'website').run();
 
-        await writeGitHubJSON(token, 'subscribers.json', subscribers, sha);
         return Response.json({ success: true });
     } catch (error) {
         console.error('subscribe error:', error);

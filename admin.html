@@ -405,37 +405,6 @@
             <div id="applicationsTable"></div>
         </div>
         
-        <!-- GitHub Settings Section -->
-        <div class="section" id="settingsSection">
-            <div class="section-header">
-                <h2>⚙️ GitHub Storage Settings</h2>
-            </div>
-            <p style="color:#666; margin-bottom:15px;">Configure the GitHub repository and personal access token used to store form data in JSON files.</p>
-            <p style="color:#e65100; font-size:0.9rem; margin-bottom:15px;">⚠️ The token is stored in your browser's local storage. Only configure this on trusted devices.</p>
-            <div style="display:grid; grid-template-columns:1fr 1fr; gap:15px; margin-bottom:15px;">
-                <div>
-                    <label style="display:block; font-weight:600; margin-bottom:5px;">Repository Owner</label>
-                    <input type="text" id="cfgOwner" class="settings-input" placeholder="e.g. NexoForger">
-                </div>
-                <div>
-                    <label style="display:block; font-weight:600; margin-bottom:5px;">Repository Name</label>
-                    <input type="text" id="cfgRepo" class="settings-input" placeholder="e.g. daberni-web">
-                </div>
-            </div>
-            <div style="display:grid; grid-template-columns:1fr 1fr; gap:15px; margin-bottom:15px;">
-                <div>
-                    <label style="display:block; font-weight:600; margin-bottom:5px;">Branch</label>
-                    <input type="text" id="cfgBranch" class="settings-input" placeholder="e.g. main">
-                </div>
-                <div>
-                    <label style="display:block; font-weight:600; margin-bottom:5px;">Personal Access Token</label>
-                    <input type="password" id="cfgToken" class="settings-input" placeholder="ghp_...">
-                </div>
-            </div>
-            <button class="btn btn-primary" onclick="saveSettings()">💾 Save Settings</button>
-            <span id="settingsMessage" style="margin-left:15px; font-weight:600;"></span>
-        </div>
-
         <!-- Back to Home -->
         <div style="text-align: center; margin-top: 40px;">
             <a href="index.html" class="btn btn-secondary">← Back to Home</a>
@@ -509,7 +478,6 @@
         async function loadData() {
             await loadSubscribers();
             await loadApplications();
-            loadSettings();
         }
         
         async function loadSubscribers() {
@@ -689,7 +657,7 @@
         async function clearSubscribers() {
             if (confirm('Are you sure you want to delete all subscribers? This action cannot be undone.')) {
                 try {
-                    await DataStore.writeData('subscribers.json', []);
+                    await DataStore.clearSubscribers();
                     await loadData();
                     alert('All subscribers have been deleted');
                 } catch (error) {
@@ -701,35 +669,13 @@
         async function clearApplications() {
             if (confirm('Are you sure you want to delete all driver applications? This action cannot be undone.')) {
                 try {
-                    await DataStore.writeData('applications.json', []);
+                    await DataStore.clearApplications();
                     await loadData();
                     alert('All driver applications have been deleted');
                 } catch (error) {
                     alert('Error clearing applications: ' + error.message);
                 }
             }
-        }
-
-        // Settings functions
-        function loadSettings() {
-            var config = DataStore.getConfig();
-            document.getElementById('cfgOwner').value = config.owner || '';
-            document.getElementById('cfgRepo').value = config.repo || '';
-            document.getElementById('cfgBranch').value = config.branch || '';
-            document.getElementById('cfgToken').value = config.token || '';
-        }
-
-        function saveSettings() {
-            DataStore.saveConfig({
-                owner: document.getElementById('cfgOwner').value.trim(),
-                repo: document.getElementById('cfgRepo').value.trim(),
-                branch: document.getElementById('cfgBranch').value.trim(),
-                token: document.getElementById('cfgToken').value.trim()
-            });
-            var msg = document.getElementById('settingsMessage');
-            msg.textContent = '✅ Settings saved!';
-            msg.style.color = '#2e7d32';
-            setTimeout(function() { msg.textContent = ''; }, 3000);
         }
         
         // Initialise auth gate on page load

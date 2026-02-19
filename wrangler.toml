@@ -1,3 +1,9 @@
 name = "daberni-web"
 compatibility_date = "2025-01-01"
 pages_build_output_dir = "./"
+
+[[d1_databases]]
+binding = "DB"
+database_name = "daberni-db"
+# Replace with your actual D1 database ID after running: npx wrangler d1 create daberni-db
+database_id = "YOUR_D1_DATABASE_ID"
