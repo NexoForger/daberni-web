@@ -38,8 +38,15 @@ var DataStore = (function () {
         return !!(config.token && config.owner && config.repo);
     }
 
+    function isValidFilename(filename) {
+        return /^[a-zA-Z0-9_-]+\.json$/.test(filename);
+    }
+
     // Read data from a JSON file in the repo via the GitHub Contents API
     async function readData(filename) {
+        if (!isValidFilename(filename)) {
+            throw new Error('Invalid filename');
+        }
         var config = getConfig();
         var url = 'https://api.github.com/repos/' + config.owner + '/' + config.repo + '/contents/data/' + filename + '?ref=' + config.branch;
         var headers = { 'Accept': 'application/vnd.github.v3+json' };
@@ -54,7 +61,7 @@ var DataStore = (function () {
                 return [];
             }
             var fileData = await response.json();
-            var decoded = decodeURIComponent(escape(atob(fileData.content.replace(/\n/g, ''))));
+            var decoded = new TextDecoder().decode(Uint8Array.from(atob(fileData.content.replace(/\n/g, '')), function(c) { return c.charCodeAt(0); }));
             return JSON.parse(decoded);
         } catch (e) {
             console.error('DataStore: Error reading ' + filename, e);
@@ -64,6 +71,9 @@ var DataStore = (function () {
 
     // Write data to a JSON file in the repo via the GitHub Contents API
     async function writeData(filename, data) {
+        if (!isValidFilename(filename)) {
+            throw new Error('Invalid filename');
+        }
         var config = getConfig();
         if (!config.token) {
             throw new Error('GitHub token not configured. Please set it in the Admin Panel settings.');
@@ -90,7 +100,7 @@ var DataStore = (function () {
         }
 
         var jsonString = JSON.stringify(data, null, 2) + '\n';
-        var content = btoa(unescape(encodeURIComponent(jsonString)));
+        var content = btoa(String.fromCharCode.apply(null, new TextEncoder().encode(jsonString)));
         var body = {
             message: 'Update ' + filename + ' via web form',
             content: content,
