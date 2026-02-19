@@ -47,7 +47,7 @@ function initSubscription() {
     if (!form || !emailInput || !message) {
         return;
     }
-    form.addEventListener('submit', function(e) {
+    form.addEventListener('submit', async function(e) {
         e.preventDefault();
         
         const email = emailInput.value.trim();
@@ -62,26 +62,24 @@ function initSubscription() {
             return;
         }
 
-        // Store subscription data
-        const subscribers = JSON.parse(localStorage.getItem('subscribers') || '[]');
-        const subscribersData = JSON.parse(localStorage.getItem('subscribersData') || '[]');
-        
-        if (!subscribers.includes(email)) {
-            subscribers.push(email);
-            subscribersData.push({
+        // Store subscription data in repo JSON file
+        try {
+            const result = await DataStore.addSubscriber({
                 email: email,
                 timestamp: new Date().toISOString(),
                 source: 'website'
             });
-            
-            localStorage.setItem('subscribers', JSON.stringify(subscribers));
-            localStorage.setItem('subscribersData', JSON.stringify(subscribersData));
-            
-            showMessage('Thank you! We\'ll notify you when we launch! 🚀', 'success');
-            emailInput.value = '';
-        } else {
-            showMessage('You\'re already subscribed! We\'ll notify you soon. 🎉', 'info');
-            emailInput.value = '';
+
+            if (result.success) {
+                showMessage('Thank you! We\'ll notify you when we launch! 🚀', 'success');
+                emailInput.value = '';
+            } else if (result.reason === 'duplicate') {
+                showMessage('You\'re already subscribed! We\'ll notify you soon. 🎉', 'info');
+                emailInput.value = '';
+            }
+        } catch (error) {
+            console.error('Subscription error:', error);
+            showMessage('There was an error. Please try again later.', 'error');
         }
     });
 
@@ -107,7 +105,7 @@ function initDriverApplication() {
         return;
     }
 
-    form.addEventListener('submit', function(e) {
+    form.addEventListener('submit', async function(e) {
         e.preventDefault();
         
         // Get form data
@@ -149,8 +147,7 @@ function initDriverApplication() {
             return;
         }
 
-        // Store application data with enhanced structure
-        const applications = JSON.parse(localStorage.getItem('driverApplications') || '[]');
+        // Store application data in repo JSON file
         const applicationData = {
             id: `app_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`,
             name: data.name,
@@ -168,10 +165,8 @@ function initDriverApplication() {
             status: 'pending'
         };
         
-        applications.push(applicationData);
-        
         try {
-            localStorage.setItem('driverApplications', JSON.stringify(applications));
+            await DataStore.addApplication(applicationData);
             showDriverMessage('Thank you for your application! We will review it and contact you soon. 🚀', 'success');
             
             // Reset form on successful submission
