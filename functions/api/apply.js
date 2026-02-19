@@ -101,7 +101,7 @@ export async function onRequestPost(context) {
         const { data: applications, sha } = await readGitHubJSON(token, 'applications.json');
 
         const applicationData = {
-            id: `app_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`,
+            id: crypto.randomUUID(),
             name: String(body.name),
             phone: String(body.phone),
             email: String(body.email),
@@ -122,6 +122,7 @@ export async function onRequestPost(context) {
 
         return Response.json({ success: true });
     } catch (error) {
+        console.error('apply error:', error);
         return Response.json(
             { error: 'Failed to save application' },
             { status: 500 }

@@ -90,6 +90,7 @@ export async function onRequestPost(context) {
         await writeGitHubJSON(token, 'subscribers.json', subscribers, sha);
         return Response.json({ success: true });
     } catch (error) {
+        console.error('subscribe error:', error);
         return Response.json(
             { error: 'Failed to save subscription' },
             { status: 500 }
