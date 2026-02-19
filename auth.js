@@ -14,7 +14,7 @@ var AdminAuth = (function () {
 
     var CONFIG = {
         // GitHub OAuth App client ID (public – safe for client-side code)
-        clientId: '',
+        clientId: 'Ov23liSY4gnK5jHIw7Mz',
 
         // URL of a small proxy that exchanges an OAuth code for a token.
         // The proxy receives POST { code } and returns { access_token }.
@@ -29,6 +29,8 @@ var AdminAuth = (function () {
             // Add GitHub usernames here, e.g.:
             // 'octocat',
             // 'mona'
+            'byterwanderer',
+            'ApparentlyVenus'
         ],
 
         // OAuth scope – read:org is needed to verify organisation membership
