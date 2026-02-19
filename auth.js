@@ -18,7 +18,7 @@ var AdminAuth = (function () {
 
         // URL of a small proxy that exchanges an OAuth code for a token.
         // The proxy receives POST { code } and returns { access_token }.
-        tokenProxyUrl: 'https://daberni-web.izuaby.workers.dev/',
+        tokenProxyUrl: 'http://daberni-web.izuaby.workers.dev/',
 
         // GitHub organisation the user must belong to
         orgName: 'NexoForger',
