@@ -1,3 +1,8 @@
 name = "daberni-web"
 compatibility_date = "2025-01-01"
 pages_build_output_dir = "./"
+
+[[d1_databases]]
+binding = "DB"
+database_name = "daberni-db"
+database_id = "YOUR_D1_DATABASE_ID"
