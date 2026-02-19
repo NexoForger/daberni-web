@@ -492,8 +492,13 @@
             // Populate user bar
             var session = AdminAuth.getSession();
             if (session) {
-                document.getElementById('userAvatar').src = session.avatarUrl || '';
-                document.getElementById('userAvatar').alt = session.username;
+                var avatarEl = document.getElementById('userAvatar');
+                if (session.avatarUrl) {
+                    avatarEl.src = session.avatarUrl;
+                    avatarEl.alt = session.username;
+                } else {
+                    avatarEl.style.display = 'none';
+                }
                 document.getElementById('userName').textContent = session.displayName || session.username;
             }
 

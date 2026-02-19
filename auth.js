@@ -60,7 +60,16 @@ var AdminAuth = (function () {
 
     function isAuthenticated() {
         var session = getSession();
-        return !!(session && session.token && session.username && session.authorized);
+        if (!(session && session.token && session.username && session.authorized)) {
+            return false;
+        }
+        // Sessions expire after 1 hour to force re-verification
+        var maxAge = 60 * 60 * 1000; // 1 hour in ms
+        if (session.createdAt && (Date.now() - session.createdAt > maxAge)) {
+            clearSession();
+            return false;
+        }
+        return true;
     }
 
     // ── OAuth flow ────────────────────────────────────────────────
@@ -117,7 +126,8 @@ var AdminAuth = (function () {
             username: userInfo.username,
             displayName: userInfo.displayName,
             avatarUrl: userInfo.avatarUrl,
-            authorized: true
+            authorized: true,
+            createdAt: Date.now()
         });
 
         return true;
@@ -150,7 +160,7 @@ var AdminAuth = (function () {
 
     async function verifyAccess(token) {
         var headers = {
-            'Authorization': 'token ' + token,
+            'Authorization': 'Bearer ' + token,
             'Accept': 'application/vnd.github.v3+json'
         };
 
@@ -174,8 +184,13 @@ var AdminAuth = (function () {
         }
 
         // 3. Verify the user is on the authorised employees list
-        if (CONFIG.authorizedUsers.length > 0
-            && CONFIG.authorizedUsers.indexOf(username) === -1) {
+        if (CONFIG.authorizedUsers.length === 0) {
+            throw new Error(
+                'No authorised employees have been configured. Please add usernames to the authorizedUsers list in auth.js.'
+            );
+        }
+
+        if (CONFIG.authorizedUsers.indexOf(username) === -1) {
             throw new Error(
                 'Your GitHub account (' + user.login + ') is not on the authorised employees list.'
             );
