@@ -130,14 +130,27 @@ var DataStore = (function () {
     }
 
     async function addSubscriber(subscriberData) {
-        var subscribers = await readData('subscribers.json');
-        var exists = subscribers.some(function (s) { return s.email === subscriberData.email; });
-        if (exists) {
-            return { success: false, reason: 'duplicate' };
+        if (isConfigured()) {
+            var subscribers = await readData('subscribers.json');
+            var exists = subscribers.some(function (s) { return s.email === subscriberData.email; });
+            if (exists) {
+                return { success: false, reason: 'duplicate' };
+            }
+            subscribers.push(subscriberData);
+            await writeData('subscribers.json', subscribers);
+            return { success: true };
         }
-        subscribers.push(subscriberData);
-        await writeData('subscribers.json', subscribers);
-        return { success: true };
+        // Public path – submit via server-side API (no token required)
+        var response = await fetch('/api/subscribe', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(subscriberData)
+        });
+        if (!response.ok) {
+            var err = await response.json().catch(function () { return {}; });
+            throw new Error(err.error || 'Failed to submit subscription');
+        }
+        return await response.json();
     }
 
     // Convenience methods for applications
@@ -146,10 +159,23 @@ var DataStore = (function () {
     }
 
     async function addApplication(applicationData) {
-        var applications = await readData('applications.json');
-        applications.push(applicationData);
-        await writeData('applications.json', applications);
-        return { success: true };
+        if (isConfigured()) {
+            var applications = await readData('applications.json');
+            applications.push(applicationData);
+            await writeData('applications.json', applications);
+            return { success: true };
+        }
+        // Public path – submit via server-side API (no token required)
+        var response = await fetch('/api/apply', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(applicationData)
+        });
+        if (!response.ok) {
+            var err = await response.json().catch(function () { return {}; });
+            throw new Error(err.error || 'Failed to submit application');
+        }
+        return await response.json();
     }
 
     return {
