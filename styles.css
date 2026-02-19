@@ -423,6 +423,7 @@ body {
     font-size: 1rem;
     min-height: 24px;
     animation: fadeIn 0.5s ease;
+    display: none;
 }
 
 .subscription-message.success {
@@ -431,6 +432,10 @@ body {
 
 .subscription-message.error {
     color: #f44336;
+}
+
+.subscription-message.info {
+    color: #26C6DA;
 }
 
 /* Features */
@@ -869,6 +874,7 @@ body {
     text-align: center;
     min-height: 24px;
     animation: fadeIn 0.5s ease;
+    display: none;
 }
 
 .form-message.success {
@@ -877,6 +883,10 @@ body {
 
 .form-message.error {
     color: #f44336;
+}
+
+.form-message.info {
+    color: #26C6DA;
 }
 
 /* Social Section */

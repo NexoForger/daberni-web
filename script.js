@@ -62,25 +62,38 @@ function initSubscription() {
             return;
         }
 
-        // Simulate subscription (in real app, this would call an API)
-        showMessage('Thank you! We\'ll notify you when we launch! 🚀', 'success');
-        emailInput.value = '';
-        
-        // Add to localStorage for demo purposes
+        // Store subscription data
         const subscribers = JSON.parse(localStorage.getItem('subscribers') || '[]');
+        const subscribersData = JSON.parse(localStorage.getItem('subscribersData') || '[]');
+        
         if (!subscribers.includes(email)) {
             subscribers.push(email);
+            subscribersData.push({
+                email: email,
+                timestamp: new Date().toISOString(),
+                source: 'website'
+            });
+            
             localStorage.setItem('subscribers', JSON.stringify(subscribers));
+            localStorage.setItem('subscribersData', JSON.stringify(subscribersData));
+            
+            showMessage('Thank you! We\'ll notify you when we launch! 🚀', 'success');
+            emailInput.value = '';
+        } else {
+            showMessage('You\'re already subscribed! We\'ll notify you soon. 🎉', 'info');
+            emailInput.value = '';
         }
     });
 
     function showMessage(text, type) {
         message.textContent = text;
         message.className = `subscription-message ${type}`;
+        message.style.display = 'block';
         
         setTimeout(() => {
             message.textContent = '';
             message.className = 'subscription-message';
+            message.style.display = 'none';
         }, 5000);
     }
 }
@@ -136,24 +149,46 @@ function initDriverApplication() {
             return;
         }
 
-        // Simulate application submission (in real app, this would call an API)
-        showDriverMessage('Thank you for your application! We will review it and contact you soon. 🚀', 'success');
-        
-        // Store application in localStorage for demo purposes
+        // Store application data with enhanced structure
         const applications = JSON.parse(localStorage.getItem('driverApplications') || '[]');
-        applications.push({
-            ...data,
-            submittedAt: new Date().toISOString()
-        });
-        localStorage.setItem('driverApplications', JSON.stringify(applications));
+        const applicationData = {
+            id: `app_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`,
+            name: data.name,
+            phone: data.phone,
+            email: data.email,
+            city: data.city,
+            vehicleType: data.vehicleType,
+            vehicleYear: data.vehicleYear,
+            licenseNumber: data.licenseNumber,
+            yearsExperience: data.yearsExperience,
+            platforms: data.platforms,
+            availability: data.availability,
+            additionalInfo: data.additionalInfo || '',
+            submittedAt: new Date().toISOString(),
+            status: 'pending'
+        };
         
-        // Reset form
-        form.reset();
+        applications.push(applicationData);
+        
+        try {
+            localStorage.setItem('driverApplications', JSON.stringify(applications));
+            showDriverMessage('Thank you for your application! We will review it and contact you soon. 🚀', 'success');
+            
+            // Reset form on successful submission
+            form.reset();
+            
+            // Log success for debugging
+            console.log('Application submitted successfully:', applicationData.id);
+        } catch (error) {
+            console.error('Error saving application:', error);
+            showDriverMessage('There was an error submitting your application. Please try again.', 'error');
+        }
     });
 
     function showDriverMessage(text, type) {
         message.textContent = text;
         message.className = `form-message ${type}`;
+        message.style.display = 'block';
         
         // Scroll to message (respecting user's motion preferences)
         const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -165,6 +200,7 @@ function initDriverApplication() {
         setTimeout(() => {
             message.textContent = '';
             message.className = 'form-message';
+            message.style.display = 'none';
         }, 8000);
     }
 }
