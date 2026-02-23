@@ -30,7 +30,8 @@ var AdminAuth = (function () {
             // 'octocat',
             // 'mona'
             'byterwanderer',
-            'ApparentlyVenus'
+            'ApparentlyVenus',
+            'purpshell'
         ],
 
         // OAuth scope – read:org is needed to verify organisation membership
