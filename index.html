@@ -16,170 +16,161 @@
     
     <link rel="stylesheet" href="styles.css">
 </head>
-<body class="bg-midnight overflow-x-hidden">
+<body class="daberni-page">
 
     <!-- Background Canvas for H3 Hex Grid -->
-    <canvas id="hexGridCanvas" class="fixed inset-0 z-0 pointer-events-none"></canvas>
+    <canvas id="hexGridCanvas"></canvas>
 
-    <div class="relative z-10 min-h-screen flex flex-col items-center">
+    <div class="page-wrapper">
         
-        <!-- Navigation / Header -->
-        <header class="w-full max-w-7xl px-6 py-8 flex justify-between items-center">
-            <div class="flex items-center space-x-2">
-                <div class="w-10 h-10 bg-cyan shadow-glow-cyan flex items-center justify-center rounded-lg rotate-12 transition-transform hover:rotate-0 cursor-pointer">
-                    <span class="text-midnight font-black text-xl">D</span>
+        <!-- Header -->
+        <header class="main-header">
+            <div class="brand">
+                <div class="logo-box">
+                    <span>D</span>
                 </div>
-                <span class="text-white font-black text-2xl tracking-tighter uppercase">Daberni</span>
+                <span class="brand-text">Daberni</span>
             </div>
-            <div class="flex items-center space-x-4">
-                <button id="langToggle" class="glass px-4 py-2 rounded-full text-sm font-medium text-white hover:bg-white/10 transition-all">
-                    العربية
-                </button>
+            <div class="header-actions">
+                <button id="langToggle" class="btn-lang">العربية</button>
             </div>
         </header>
 
         <!-- Hero Section -->
-        <main class="w-full max-w-5xl px-6 pt-16 pb-24 text-center">
-            <h1 class="text-5xl md:text-7xl font-black text-white leading-tight mb-6">
+        <section class="hero-section">
+            <h1 class="hero-title">
                 THE WORLD IS A <br>
-                <span class="text-transparent bg-clip-text bg-gradient-to-r from-cyan to-blue-500">HEXAGONAL GRID.</span>
+                <span class="gradient-text">HEXAGONAL GRID.</span>
             </h1>
-            <p class="text-gray-400 text-lg md:text-xl max-w-2xl mx-auto mb-12 font-inter">
+            <p class="hero-subtitle">
                 Daberni is Lebanon's first spatial logistics Super-App. From rides and fashion to food safety intelligence—consider it sorted.
             </p>
             
-            <div class="flex flex-wrap justify-center gap-4 mb-20">
-                <a href="#services" class="bg-cyan hover:shadow-glow-cyan text-midnight px-8 py-4 rounded-xl font-bold transition-all transform hover:scale-105">
-                    Explore Verticals
-                </a>
-                <a href="#request" class="glass border border-white/10 text-white px-8 py-4 rounded-xl font-bold hover:bg-white/5 transition-all">
-                    Request a Service
-                </a>
+            <div class="hero-cta">
+                <a href="#services" class="btn-primary">Explore Verticals</a>
+                <a href="#request" class="btn-secondary">Request a Service</a>
             </div>
+        </section>
 
-            <!-- Vertical Grid -->
-            <section id="services" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 text-left">
+        <!-- Vertical Grid -->
+        <section id="services" class="verticals-container">
+            <div class="verticals-grid">
                 
                 <!-- Taxi -->
-                <div class="glass-card p-6 border-t-4 border-amber group cursor-pointer hover:-translate-y-2 transition-all">
-                    <div class="w-12 h-12 rounded-lg bg-amber/10 flex items-center justify-center mb-4 group-hover:shadow-glow-amber transition-all">
-                        <i class="lucide-car text-amber text-2xl"></i>
+                <div class="glass-card taxi-card">
+                    <div class="card-icon">
+                        <i class="lucide-car"></i>
                     </div>
-                    <h3 class="text-xl font-black text-white mb-2">MOBILITY</h3>
-                    <p class="text-gray-400 text-sm leading-relaxed mb-4">
+                    <h3 class="card-title">MOBILITY</h3>
+                    <p class="card-desc">
                         Any vehicle, any time. Real-time H3-optimized matching for the fastest rides in Lebanon.
                     </p>
-                    <span class="text-amber text-xs font-bold uppercase tracking-widest">Available Res 9</span>
+                    <span class="card-tag">Available Res 9</span>
                 </div>
 
                 <!-- Food -->
-                <div class="glass-card p-6 border-t-4 border-red group cursor-pointer hover:-translate-y-2 transition-all">
-                    <div class="w-12 h-12 rounded-lg bg-red/10 flex items-center justify-center mb-4 group-hover:shadow-glow-red transition-all">
-                        <i class="lucide-utensils text-red text-2xl"></i>
+                <div class="glass-card food-card">
+                    <div class="card-icon">
+                        <i class="lucide-utensils"></i>
                     </div>
-                    <h3 class="text-xl font-black text-white mb-2">FOOD INTELLIGENCE</h3>
-                    <p class="text-gray-400 text-sm leading-relaxed mb-4">
+                    <h3 class="card-title">FOOD INTELLIGENCE</h3>
+                    <p class="card-desc">
                         Safe ordering with allergen tracking and dietary filtering. We prioritize your health.
                     </p>
-                    <div class="flex space-x-2">
-                        <span class="bg-red/20 text-red px-2 py-1 rounded text-[10px] font-bold">ALLERGEN ALERTS</span>
-                        <span class="bg-red/20 text-red px-2 py-1 rounded text-[10px] font-bold">HALAL</span>
+                    <div class="tag-row">
+                        <span class="badge">ALLERGEN ALERTS</span>
+                        <span class="badge">HALAL</span>
                     </div>
                 </div>
 
                 <!-- Grocery -->
-                <div class="glass-card p-6 border-t-4 border-emerald group cursor-pointer hover:-translate-y-2 transition-all">
-                    <div class="w-12 h-12 rounded-lg bg-emerald/10 flex items-center justify-center mb-4 group-hover:shadow-glow-emerald transition-all">
-                        <i class="lucide-shopping-cart text-emerald text-2xl"></i>
+                <div class="glass-card grocery-card">
+                    <div class="card-icon">
+                        <i class="lucide-shopping-cart"></i>
                     </div>
-                    <h3 class="text-xl font-black text-white mb-2">GROCERY FRESHNESS</h3>
-                    <p class="text-gray-400 text-sm leading-relaxed mb-4">
+                    <h3 class="card-title">GROCERY FRESHNESS</h3>
+                    <p class="card-desc">
                         Shoppers who care. Real-time freshness indicators and expiration tracking for every item.
                     </p>
-                    <span class="text-emerald text-xs font-bold uppercase tracking-widest">Fresh Today Only</span>
+                    <span class="card-tag">Fresh Today Only</span>
                 </div>
 
                 <!-- Fashion -->
-                <div class="glass-card p-6 border-t-4 border-purple group cursor-pointer hover:-translate-y-2 transition-all">
-                    <div class="w-12 h-12 rounded-lg bg-purple/10 flex items-center justify-center mb-4 group-hover:shadow-glow-purple transition-all">
-                        <i class="lucide-shirt text-purple text-2xl"></i>
+                <div class="glass-card fashion-card">
+                    <div class="card-icon">
+                        <i class="lucide-shirt"></i>
                     </div>
-                    <h3 class="text-xl font-black text-white mb-2">URBAN COMMERCE</h3>
-                    <p class="text-gray-400 text-sm leading-relaxed mb-4">
+                    <h3 class="card-title">URBAN COMMERCE</h3>
+                    <p class="card-desc">
                         Clothing, shoes, and lifestyle. Multi-variant shopping with seamless return logic.
                     </p>
-                    <span class="text-purple text-xs font-bold uppercase tracking-widest">Sizeless Returns</span>
+                    <span class="card-tag">Sizeless Returns</span>
                 </div>
 
                 <!-- Courier -->
-                <div class="glass-card p-6 border-t-4 border-cyan group cursor-pointer hover:-translate-y-2 transition-all">
-                    <div class="w-12 h-12 rounded-lg bg-cyan/10 flex items-center justify-center mb-4 group-hover:shadow-glow-cyan transition-all">
-                        <i class="lucide-package text-cyan text-2xl"></i>
+                <div class="glass-card courier-card">
+                    <div class="card-icon">
+                        <i class="lucide-package"></i>
                     </div>
-                    <h3 class="text-xl font-black text-white mb-2">P2P COURIER</h3>
-                    <p class="text-gray-400 text-sm leading-relaxed mb-4">
+                    <h3 class="card-title">P2P COURIER</h3>
+                    <p class="card-desc">
                         Secure, point-to-point delivery. Track your parcel as it traverses the hexagonal grid.
                     </p>
-                    <span class="text-cyan text-xs font-bold uppercase tracking-widest">Secured Transit</span>
+                    <span class="card-tag">Secured Transit</span>
                 </div>
 
-                <!-- Placeholder / Future -->
-                <div class="glass-card p-6 border-t-4 border-gray-600 bg-white/5 flex flex-col items-center justify-center text-center">
-                    <div class="w-12 h-12 rounded-full border-2 border-dashed border-gray-500 flex items-center justify-center mb-4">
-                        <i class="lucide-plus text-gray-500"></i>
+                <!-- Future -->
+                <div class="glass-card placeholder-card">
+                    <div class="plus-circle">
+                        <i class="lucide-plus"></i>
                     </div>
-                    <h3 class="text-lg font-bold text-gray-400">WHAT'S NEXT?</h3>
-                    <p class="text-gray-500 text-xs mt-2">Suggest a service below</p>
+                    <h3 class="card-title-muted">WHAT'S NEXT?</h3>
+                    <p class="card-desc-muted">Suggest a service below</p>
                 </div>
-            </section>
-        </main>
+            </div>
+        </section>
 
         <!-- Request Section -->
-        <section id="request" class="w-full bg-midnight-soft py-24 px-6 flex justify-center">
-            <div class="w-full max-w-2xl glass p-10 rounded-3xl border border-white/5 shadow-2xl">
-                <h2 class="text-3xl font-black text-white mb-2">SORT ME OUT.</h2>
-                <p class="text-gray-400 mb-8 font-inter">Help us build the services Lebanon actually needs. What should we add next?</p>
+        <section id="request" class="request-section">
+            <div class="request-box">
+                <h2 class="request-title">SORT ME OUT.</h2>
+                <p class="request-subtitle">Help us build the services Lebanon actually needs. What should we add next?</p>
                 
-                <form id="requestForm" class="space-y-6">
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        <div class="flex flex-col space-y-2">
-                            <label class="text-xs font-bold text-cyan uppercase tracking-widest">Your Name</label>
-                            <input type="text" id="name" required class="bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white focus:border-cyan outline-none transition-all" placeholder="John Doe">
+                <form id="requestForm" class="request-form">
+                    <div class="form-row">
+                        <div class="input-group">
+                            <label>Your Name</label>
+                            <input type="text" id="name" required placeholder="John Doe">
                         </div>
-                        <div class="flex flex-col space-y-2">
-                            <label class="text-xs font-bold text-cyan uppercase tracking-widest">Email Address</label>
-                            <input type="email" id="email" required class="bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white focus:border-cyan outline-none transition-all" placeholder="john@example.com">
+                        <div class="input-group">
+                            <label>Email Address</label>
+                            <input type="email" id="email" required placeholder="john@example.com">
                         </div>
                     </div>
-                    <div class="flex flex-col space-y-2">
-                        <label class="text-xs font-bold text-cyan uppercase tracking-widest">Service Idea</label>
-                        <textarea id="idea" required rows="4" class="bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white focus:border-cyan outline-none transition-all resize-none" placeholder="E.g., On-demand laundry, pharmacy delivery..."></textarea>
+                    <div class="input-group full-width">
+                        <label>Service Idea</label>
+                        <textarea id="idea" required rows="4" placeholder="E.g., On-demand laundry, pharmacy delivery..."></textarea>
                     </div>
-                    <button type="submit" class="w-full bg-cyan text-midnight font-black py-4 rounded-xl hover:shadow-glow-cyan transition-all transform hover:scale-[1.02]">
-                        SUBMIT REQUEST
-                    </button>
-                    <p id="formStatus" class="text-center text-sm font-bold transition-all opacity-0"></p>
+                    <button type="submit" class="btn-submit">SUBMIT REQUEST</button>
+                    <p id="formStatus" class="form-status"></p>
                 </form>
             </div>
         </section>
 
         <!-- Footer -->
-        <footer class="w-full max-w-7xl px-6 py-12 flex flex-col md:flex-row justify-between items-center text-gray-500 border-t border-white/5">
-            <div class="flex items-center space-x-2 mb-4 md:mb-0">
-                <span class="font-black text-white text-lg tracking-tighter">DABERNI</span>
-                <span class="text-xs">© 2026. Lebanon's Super-App.</span>
+        <footer class="main-footer">
+            <div class="footer-left">
+                <span class="footer-brand">DABERNI</span>
+                <span class="footer-copyright">© 2026. Lebanon's Super-App.</span>
             </div>
-            <div class="flex space-x-6 text-xl">
-                <a href="#" class="hover:text-white transition-colors"><i class="lucide-instagram"></i></a>
-                <a href="#" class="hover:text-white transition-colors"><i class="lucide-twitter"></i></a>
-                <a href="#" class="hover:text-white transition-colors"><i class="lucide-linkedin"></i></a>
+            <div class="footer-socials">
+                <a href="#"><i class="lucide-instagram"></i></a>
+                <a href="#"><i class="lucide-twitter"></i></a>
+                <a href="#"><i class="lucide-linkedin"></i></a>
             </div>
         </footer>
 
     </div>
-
-    <!-- Haptic Interaction Overlay (Invisible) -->
-    <div id="hapticLayer" class="fixed inset-0 pointer-events-none z-50"></div>
 
     <script src="script.js"></script>
 </body>
