@@ -3,175 +3,440 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Daberni - The Hexagonal Super-App for Lebanon. Taxi, Food, Grocery, Fashion, and more.">
+    <meta name="description" content="Daberni is Lebanon's super-app for mobility, food, shopping, courier, home services, health, travel, and entertainment.">
     <title>Daberni | Sort Me Out</title>
-    
-    <!-- Fonts -->
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800;900&family=Inter:wght@300;400;500;600&family=Tajawal:wght@700;900&display=swap" rel="stylesheet">
-    
-    <!-- Icons -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lucide-static@0.468.0/font/lucide.min.css">
-    
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800&family=Inter:wght@400;500;600;700;800&family=Tajawal:wght@500;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
 </head>
 <body class="daberni-page">
+    <canvas id="hexGridCanvas" aria-hidden="true"></canvas>
 
-    <!-- Background Canvas for H3 Hex Grid -->
-    <canvas id="hexGridCanvas"></canvas>
+    <div class="page-shell">
+        <header class="site-header">
+            <a class="brand" href="#top" aria-label="Daberni home">
+                <span class="brand-mark">D</span>
+                <span class="brand-copy">
+                    <span class="brand-name">Daberni</span>
+                    <span class="brand-tagline" data-i18n="brandTagline">Lebanon, sorted.</span>
+                </span>
+            </a>
 
-    <div class="page-wrapper">
-        
-        <!-- Header -->
-        <header class="main-header">
-            <div class="brand">
-                <div class="logo-box">
-                    <span>D</span>
-                </div>
-                <span class="brand-text">Daberni</span>
-            </div>
+            <nav class="site-nav" aria-label="Primary">
+                <a href="#services" data-i18n="navServices">Services</a>
+                <a href="#platform" data-i18n="navPlatform">Platform</a>
+                <a href="#waitlist" data-i18n="navWaitlist">Waitlist</a>
+                <a href="#operators" data-i18n="navOperators">Operators</a>
+            </nav>
+
             <div class="header-actions">
-                <button id="langToggle" class="btn-lang">العربية</button>
+                <a class="header-link" href="#waitlist" data-i18n="headerCta">Get early access</a>
+                <button id="langToggle" class="lang-toggle" type="button">العربية</button>
             </div>
         </header>
 
-        <!-- Hero Section -->
-        <section class="hero-section">
-            <h1 class="hero-title">
-                THE WORLD IS A <br>
-                <span class="gradient-text">HEXAGONAL GRID.</span>
-            </h1>
-            <p class="hero-subtitle">
-                Daberni is Lebanon's first spatial logistics Super-App. From rides and fashion to food safety intelligence—consider it sorted.
-            </p>
-            
-            <div class="hero-cta">
-                <a href="#services" class="btn-primary">Explore Verticals</a>
-                <a href="#request" class="btn-secondary">Request a Service</a>
-            </div>
-        </section>
-
-        <!-- Vertical Grid -->
-        <section id="services" class="verticals-container">
-            <div class="verticals-grid">
-                
-                <!-- Taxi -->
-                <div class="glass-card taxi-card">
-                    <div class="card-icon">
-                        <i class="lucide-car"></i>
-                    </div>
-                    <h3 class="card-title">MOBILITY</h3>
-                    <p class="card-desc">
-                        Any vehicle, any time. Real-time H3-optimized matching for the fastest rides in Lebanon.
+        <main id="top">
+            <section class="hero-section">
+                <div class="hero-copy reveal">
+                    <p class="eyebrow" data-i18n="heroEyebrow">Light-theme super-app for local life in Lebanon</p>
+                    <h1 class="hero-title" data-i18n="heroTitle">Whatever you need handled, Daberni gets it done.</h1>
+                    <p class="hero-subtitle" data-i18n="heroSubtitle">
+                        One identity, one wallet, one trust layer, and one logistics brain built for the way Lebanon actually moves.
                     </p>
-                    <span class="card-tag">Available Res 9</span>
-                </div>
 
-                <!-- Food -->
-                <div class="glass-card food-card">
-                    <div class="card-icon">
-                        <i class="lucide-utensils"></i>
+                    <div class="hero-actions">
+                        <a class="btn btn-primary" href="#waitlist" data-i18n="heroPrimary">Join the waitlist</a>
+                        <a class="btn btn-secondary" href="#operators" data-i18n="heroSecondary">Apply as an operator</a>
                     </div>
-                    <h3 class="card-title">FOOD INTELLIGENCE</h3>
-                    <p class="card-desc">
-                        Safe ordering with allergen tracking and dietary filtering. We prioritize your health.
-                    </p>
-                    <div class="tag-row">
-                        <span class="badge">ALLERGEN ALERTS</span>
-                        <span class="badge">HALAL</span>
-                    </div>
-                </div>
 
-                <!-- Grocery -->
-                <div class="glass-card grocery-card">
-                    <div class="card-icon">
-                        <i class="lucide-shopping-cart"></i>
-                    </div>
-                    <h3 class="card-title">GROCERY FRESHNESS</h3>
-                    <p class="card-desc">
-                        Shoppers who care. Real-time freshness indicators and expiration tracking for every item.
-                    </p>
-                    <span class="card-tag">Fresh Today Only</span>
-                </div>
-
-                <!-- Fashion -->
-                <div class="glass-card fashion-card">
-                    <div class="card-icon">
-                        <i class="lucide-shirt"></i>
-                    </div>
-                    <h3 class="card-title">URBAN COMMERCE</h3>
-                    <p class="card-desc">
-                        Clothing, shoes, and lifestyle. Multi-variant shopping with seamless return logic.
-                    </p>
-                    <span class="card-tag">Sizeless Returns</span>
-                </div>
-
-                <!-- Courier -->
-                <div class="glass-card courier-card">
-                    <div class="card-icon">
-                        <i class="lucide-package"></i>
-                    </div>
-                    <h3 class="card-title">P2P COURIER</h3>
-                    <p class="card-desc">
-                        Secure, point-to-point delivery. Track your parcel as it traverses the hexagonal grid.
-                    </p>
-                    <span class="card-tag">Secured Transit</span>
-                </div>
-
-                <!-- Future -->
-                <div class="glass-card placeholder-card">
-                    <div class="plus-circle">
-                        <i class="lucide-plus"></i>
-                    </div>
-                    <h3 class="card-title-muted">WHAT'S NEXT?</h3>
-                    <p class="card-desc-muted">Suggest a service below</p>
-                </div>
-            </div>
-        </section>
-
-        <!-- Request Section -->
-        <section id="request" class="request-section">
-            <div class="request-box">
-                <h2 class="request-title">SORT ME OUT.</h2>
-                <p class="request-subtitle">Help us build the services Lebanon actually needs. What should we add next?</p>
-                
-                <form id="requestForm" class="request-form">
-                    <div class="form-row">
-                        <div class="input-group">
-                            <label>Your Name</label>
-                            <input type="text" id="name" required placeholder="John Doe">
+                    <div class="hero-metrics">
+                        <div class="metric-chip">
+                            <span class="metric-value">8</span>
+                            <span class="metric-label" data-i18n="metricServices">service verticals</span>
                         </div>
-                        <div class="input-group">
-                            <label>Email Address</label>
-                            <input type="email" id="email" required placeholder="john@example.com">
+                        <div class="metric-chip">
+                            <span class="metric-value">1</span>
+                            <span class="metric-label" data-i18n="metricWallet">wallet and identity layer</span>
+                        </div>
+                        <div class="metric-chip">
+                            <span class="metric-value">Live</span>
+                            <span class="metric-label" data-i18n="metricLogistics">dispatch and operations layer</span>
                         </div>
                     </div>
-                    <div class="input-group full-width">
-                        <label>Service Idea</label>
-                        <textarea id="idea" required rows="4" placeholder="E.g., On-demand laundry, pharmacy delivery..."></textarea>
-                    </div>
-                    <button type="submit" class="btn-submit">SUBMIT REQUEST</button>
-                    <p id="formStatus" class="form-status"></p>
-                </form>
-            </div>
-        </section>
 
-        <!-- Footer -->
-        <footer class="main-footer">
-            <div class="footer-left">
-                <span class="footer-brand">DABERNI</span>
-                <span class="footer-copyright">© 2026. Lebanon's Super-App.</span>
+                    <div class="hero-notes">
+                        <div class="hero-note">
+                            <span class="hero-note-label" data-i18n="noteOneLabel">Built for</span>
+                            <strong data-i18n="noteOneValue">dense cities, neighborhood trust, and mixed payment behavior</strong>
+                        </div>
+                        <div class="hero-note">
+                            <span class="hero-note-label" data-i18n="noteTwoLabel">Designed to</span>
+                            <strong data-i18n="noteTwoValue">feel calm when everything around it is fragmented</strong>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="hero-panel reveal">
+                    <div class="hero-panel-card app-frame">
+                        <img class="hero-visual" src="assets/hero-city.svg" alt="Daberni city operations illustration">
+                        <div class="frame-topbar">
+                            <div>
+                                <p class="panel-label" data-i18n="commandLabel">Command bar</p>
+                                <div class="command-line" data-i18n="commandText">What do you need sorted?</div>
+                            </div>
+                            <span class="status-dot"></span>
+                        </div>
+
+                        <div class="route-card">
+                            <div class="route-stop pickup">
+                                <span class="route-point"></span>
+                                <div>
+                                    <span class="route-label" data-i18n="pickupLabel">Pickup</span>
+                                    <strong data-i18n="pickupValue">Hamra, Beirut</strong>
+                                </div>
+                            </div>
+                            <div class="route-line"></div>
+                            <div class="route-stop dropoff">
+                                <span class="route-point"></span>
+                                <div>
+                                    <span class="route-label" data-i18n="dropoffLabel">Dropoff</span>
+                                    <strong data-i18n="dropoffValue">Achrafieh, Sassine</strong>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="city-board">
+                            <div class="city-board-main">
+                                <div class="board-head">
+                                    <p class="panel-label" data-i18n="systemLabel">Operational layer</p>
+                                    <h2 data-i18n="systemTitle">Urban infrastructure with taste.</h2>
+                                </div>
+                                <ul class="signal-list">
+                                    <li data-i18n="signalOne">Live demand sensing across neighborhoods</li>
+                                    <li data-i18n="signalTwo">Dynamic dispatch by proximity</li>
+                                    <li data-i18n="signalThree">Unified trust, support, and payment memory</li>
+                                </ul>
+                            </div>
+
+                            <div class="board-side">
+                                <div class="mini-tile wallet">
+                                    <span class="mini-title" data-i18n="miniWalletTitle">Wallet</span>
+                                    <strong data-i18n="miniWalletValue">Cash, card, wallet, hybrid</strong>
+                                </div>
+                                <div class="mini-tile trust">
+                                    <span class="mini-title" data-i18n="miniTrustTitle">Trust</span>
+                                    <strong data-i18n="miniTrustValue">Ratings, reliability, audit trails</strong>
+                                </div>
+                                <div class="mini-tile eta">
+                                    <span class="mini-title" data-i18n="miniEtaTitle">Live ETA</span>
+                                    <strong data-i18n="miniEtaValue">6 min rider, 18 min groceries, 27 min courier</strong>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="reality-strip reveal" aria-label="Local reality">
+                <article class="reality-card">
+                    <img class="reality-art" src="assets/reality-merchants.svg" alt="" aria-hidden="true">
+                    <span class="reality-index">01</span>
+                    <p data-i18n="realityOne">Informal merchants need structure without losing flexibility.</p>
+                </article>
+                <article class="reality-card">
+                    <img class="reality-art" src="assets/reality-users.svg" alt="" aria-hidden="true">
+                    <span class="reality-index">02</span>
+                    <p data-i18n="realityTwo">Users need speed, cash support, and clarity they can trust immediately.</p>
+                </article>
+                <article class="reality-card">
+                    <img class="reality-art" src="assets/reality-ops.svg" alt="" aria-hidden="true">
+                    <span class="reality-index">03</span>
+                    <p data-i18n="realityThree">Operations need live zone visibility, not another spreadsheet-driven mess.</p>
+                </article>
+            </section>
+
+            <section class="services-section reveal" id="services">
+                <div class="section-heading">
+                    <p class="section-kicker" data-i18n="servicesKicker">Product universe</p>
+                    <h2 data-i18n="servicesTitle">A single front door for every local need.</h2>
+                    <p data-i18n="servicesSubtitle">
+                        Designed to feel unified at the shell level, with clear service accents that help each vertical stay distinct.
+                    </p>
+                </div>
+
+                <div class="services-grid">
+                    <button class="service-card mobility feature-card" type="button" data-service="mobility" aria-haspopup="dialog" aria-controls="serviceModal">
+                        <img class="service-art" src="assets/service-mobility.svg" alt="" aria-hidden="true">
+                        <span class="service-index">01</span>
+                        <h3 data-i18n="serviceMobilityTitle">Mobility</h3>
+                        <p data-i18n="serviceMobilityBody">Ride-hailing for cars, bikes, and motorbikes with fast matching and strong ETA clarity.</p>
+                        <span class="service-meta" data-i18n="serviceMobilityMeta">Fastest entry point into the ecosystem</span>
+                    </button>
+                    <button class="service-card food" type="button" data-service="food" aria-haspopup="dialog" aria-controls="serviceModal">
+                        <img class="service-art" src="assets/service-food.svg" alt="" aria-hidden="true">
+                        <span class="service-index">02</span>
+                        <h3 data-i18n="serviceFoodTitle">Food</h3>
+                        <p data-i18n="serviceFoodBody">Restaurant ordering, pickup, and delivery with repeat actions that stay fast.</p>
+                    </button>
+                    <button class="service-card grocery tall-card" type="button" data-service="shopping" aria-haspopup="dialog" aria-controls="serviceModal">
+                        <img class="service-art" src="assets/service-shopping.svg" alt="" aria-hidden="true">
+                        <span class="service-index">03</span>
+                        <h3 data-i18n="serviceShoppingTitle">Shopping</h3>
+                        <p data-i18n="serviceShoppingBody">Groceries, pharmacy, essentials, and proxy shopping handled in one flow.</p>
+                        <span class="service-meta" data-i18n="serviceShoppingMeta">Partner stores, proxy shopping, substitution logic</span>
+                    </button>
+                    <button class="service-card courier" type="button" data-service="courier" aria-haspopup="dialog" aria-controls="serviceModal">
+                        <img class="service-art" src="assets/service-courier.svg" alt="" aria-hidden="true">
+                        <span class="service-index">04</span>
+                        <h3 data-i18n="serviceCourierTitle">Courier</h3>
+                        <p data-i18n="serviceCourierBody">Point-to-point parcel and document logistics with clear handoff visibility.</p>
+                    </button>
+                    <button class="service-card home" type="button" data-service="home" aria-haspopup="dialog" aria-controls="serviceModal">
+                        <img class="service-art" src="assets/service-home.svg" alt="" aria-hidden="true">
+                        <span class="service-index">05</span>
+                        <h3 data-i18n="serviceHomeTitle">Home services</h3>
+                        <p data-i18n="serviceHomeBody">Cleaning, maintenance, repairs, and technician dispatch without the usual chaos.</p>
+                    </button>
+                    <button class="service-card health" type="button" data-service="health" aria-haspopup="dialog" aria-controls="serviceModal">
+                        <img class="service-art" src="assets/service-health.svg" alt="" aria-hidden="true">
+                        <span class="service-index">06</span>
+                        <h3 data-i18n="serviceHealthTitle">Health</h3>
+                        <p data-i18n="serviceHealthBody">Pharmacy, clinics, appointments, and care support under a trusted identity layer.</p>
+                    </button>
+                    <button class="service-card travel" type="button" data-service="travel" aria-haspopup="dialog" aria-controls="serviceModal">
+                        <img class="service-art" src="assets/service-travel.svg" alt="" aria-hidden="true">
+                        <span class="service-index">07</span>
+                        <h3 data-i18n="serviceTravelTitle">Travel</h3>
+                        <p data-i18n="serviceTravelBody">Intercity coordination, airport support, and booking flows that feel calm under pressure.</p>
+                    </button>
+                    <button class="service-card entertainment" type="button" data-service="entertainment" aria-haspopup="dialog" aria-controls="serviceModal">
+                        <img class="service-art" src="assets/service-entertainment.svg" alt="" aria-hidden="true">
+                        <span class="service-index">08</span>
+                        <h3 data-i18n="serviceEntertainmentTitle">Entertainment</h3>
+                        <p data-i18n="serviceEntertainmentBody">Experiences, nightlife, and reservations managed with local context instead of generic listings.</p>
+                    </button>
+                </div>
+            </section>
+
+            <section class="platform-section reveal" id="platform">
+                <div class="section-heading">
+                    <p class="section-kicker" data-i18n="platformKicker">Platform thesis</p>
+                    <h2 data-i18n="platformTitle">Built for fragmented local reality, not for imported assumptions.</h2>
+                </div>
+
+                <div class="platform-grid">
+                    <article class="platform-card">
+                        <img class="platform-art" src="assets/platform-identity.svg" alt="" aria-hidden="true">
+                        <h3 data-i18n="platformCardOneTitle">One identity</h3>
+                        <p data-i18n="platformCardOneBody">Saved places, preferences, support history, and trust indicators stay portable across every vertical.</p>
+                    </article>
+                    <article class="platform-card">
+                        <img class="platform-art" src="assets/platform-wallet.svg" alt="" aria-hidden="true">
+                        <h3 data-i18n="platformCardTwoTitle">One wallet</h3>
+                        <p data-i18n="platformCardTwoBody">Cash, card, stored balance, and hybrid settlement work inside one payments layer.</p>
+                    </article>
+                    <article class="platform-card">
+                        <img class="platform-art" src="assets/platform-ops.svg" alt="" aria-hidden="true">
+                        <h3 data-i18n="platformCardThreeTitle">One logistics brain</h3>
+                        <p data-i18n="platformCardThreeBody">Dispatch, routing, and supply balancing work inside one operational system.</p>
+                    </article>
+                    <article class="platform-card">
+                        <img class="platform-art" src="assets/platform-trust.svg" alt="" aria-hidden="true">
+                        <h3 data-i18n="platformCardFourTitle">One trust memory</h3>
+                        <p data-i18n="platformCardFourBody">Ratings, reliability, escalation trails, and provider history reduce uncertainty every time.</p>
+                    </article>
+                </div>
+
+            </section>
+
+            <section class="forms-section">
+                <div class="forms-sidebar">
+                    <div class="waitlist-card reveal" id="waitlist">
+                        <img class="section-asset waitlist-asset" src="assets/waitlist-orbit.svg" alt="Early access illustration">
+                        <div class="section-heading left">
+                            <p class="section-kicker" data-i18n="waitlistKicker">Early access</p>
+                            <h2 data-i18n="waitlistTitle">Join the Daberni waitlist.</h2>
+                            <p data-i18n="waitlistBody">Get launch updates, city rollout news, and first access when the product opens.</p>
+                        </div>
+
+                        <form id="subscribeForm" class="subscribe-form">
+                            <label class="sr-only" for="subscribeEmail" data-i18n="emailLabel">Email address</label>
+                            <input
+                                id="subscribeEmail"
+                                name="email"
+                                type="email"
+                                required
+                                autocomplete="email"
+                                placeholder="name@example.com"
+                                data-i18n-placeholder="emailPlaceholder"
+                            >
+                            <button class="btn btn-primary" type="submit" data-i18n="waitlistButton">Request early access</button>
+                        </form>
+                        <p id="subscribeStatus" class="form-status" aria-live="polite"></p>
+                    </div>
+
+                    <div class="suggestion-card reveal" id="suggestions">
+                        <img class="section-asset suggestion-asset" src="assets/suggestion-tiles.svg" alt="Suggestions illustration">
+                        <div class="section-heading left">
+                            <p class="section-kicker" data-i18n="suggestionsKicker">Product suggestions</p>
+                            <h2 data-i18n="suggestionsTitle">What should Daberni sort out next?</h2>
+                            <p data-i18n="suggestionsBody">Share a category, workflow, or local pain point you want us to solve.</p>
+                        </div>
+
+                        <form id="suggestionForm" class="suggestion-form">
+                            <label class="field">
+                                <span data-i18n="fieldSuggestionName">Your name</span>
+                                <input id="suggestionName" name="suggestionName" type="text" placeholder="Rana Haddad" data-i18n-placeholder="suggestionNamePlaceholder">
+                            </label>
+                            <label class="field field-full">
+                                <span data-i18n="fieldSuggestion">Your suggestion</span>
+                                <textarea id="suggestionText" name="suggestionText" rows="4" required placeholder="Add pharmacy delivery, neighborhood errands, scheduled pickups, or anything else that matters." data-i18n-placeholder="suggestionPlaceholder"></textarea>
+                            </label>
+                            <button class="btn btn-secondary btn-submit" type="submit" data-i18n="suggestionButton">Send suggestion</button>
+                            <p id="suggestionStatus" class="form-status" aria-live="polite"></p>
+                        </form>
+                    </div>
+                </div>
+
+                <div class="operator-card reveal" id="operators">
+                    <img class="section-asset operator-asset" src="assets/operator-badge.svg" alt="Operator application illustration">
+                    <div class="section-heading left">
+                        <p class="section-kicker" data-i18n="operatorsKicker">Operator network</p>
+                        <h2 data-i18n="operatorsTitle">Apply as a driver or operator.</h2>
+                        <p data-i18n="operatorsBody">We are building the first supply network before launch. Apply if you want to drive, deliver, or help run the network on day one.</p>
+                    </div>
+
+                    <form id="applicationForm" class="application-form">
+                        <div class="form-grid">
+                            <label class="field">
+                                <span data-i18n="fieldName">Full name</span>
+                                <input id="name" name="name" type="text" required placeholder="Mohammad Khoury" data-i18n-placeholder="namePlaceholder">
+                            </label>
+                            <label class="field">
+                                <span data-i18n="fieldPhone">Phone number</span>
+                                <input id="phone" name="phone" type="tel" required placeholder="+961 70 000 000" data-i18n-placeholder="phonePlaceholder">
+                            </label>
+                            <label class="field">
+                                <span data-i18n="fieldEmail">Email address</span>
+                                <input id="email" name="email" type="email" required placeholder="name@example.com" data-i18n-placeholder="emailPlaceholder">
+                            </label>
+                            <label class="field">
+                                <span data-i18n="fieldCity">City / area</span>
+                                <input id="city" name="city" type="text" required placeholder="Beirut" data-i18n-placeholder="cityPlaceholder">
+                            </label>
+                            <label class="field">
+                                <span data-i18n="fieldVehicleType">Vehicle type</span>
+                                <select id="vehicleType" name="vehicleType" required>
+                                    <option value="" data-i18n="vehicleDefault">Select a vehicle</option>
+                                    <option value="motorbike" data-i18n="vehicleMotorbike">Motorbike</option>
+                                    <option value="car" data-i18n="vehicleCar">Car</option>
+                                    <option value="bike" data-i18n="vehicleBike">Bike</option>
+                                    <option value="van" data-i18n="vehicleVan">Van</option>
+                                </select>
+                            </label>
+                            <label class="field">
+                                <span data-i18n="fieldVehicleYear">Vehicle year</span>
+                                <input id="vehicleYear" name="vehicleYear" type="number" min="1990" max="2035" required placeholder="2021">
+                            </label>
+                            <label class="field">
+                                <span data-i18n="fieldLicense">License number</span>
+                                <input id="licenseNumber" name="licenseNumber" type="text" required placeholder="1234567">
+                            </label>
+                            <label class="field">
+                                <span data-i18n="fieldExperience">Years of experience</span>
+                                <select id="yearsExperience" name="yearsExperience" required>
+                                    <option value="" data-i18n="experienceDefault">Select experience</option>
+                                    <option value="0-1" data-i18n="experienceOne">0 to 1 year</option>
+                                    <option value="2-3" data-i18n="experienceTwo">2 to 3 years</option>
+                                    <option value="4-6" data-i18n="experienceThree">4 to 6 years</option>
+                                    <option value="7+" data-i18n="experienceFour">7+ years</option>
+                                </select>
+                            </label>
+                            <label class="field">
+                                <span data-i18n="fieldAvailability">Availability</span>
+                                <select id="availability" name="availability" required>
+                                    <option value="" data-i18n="availabilityDefault">Select availability</option>
+                                    <option value="full-time" data-i18n="availabilityFull">Full-time</option>
+                                    <option value="part-time" data-i18n="availabilityPart">Part-time</option>
+                                    <option value="weekends" data-i18n="availabilityWeekends">Weekends</option>
+                                    <option value="evenings" data-i18n="availabilityEvenings">Evenings</option>
+                                </select>
+                            </label>
+                        </div>
+
+                        <fieldset class="platform-checkboxes">
+                            <legend data-i18n="platformsLegend">Existing platform experience</legend>
+                            <label><input type="checkbox" name="platforms" value="uber"> Uber</label>
+                            <label><input type="checkbox" name="platforms" value="careem"> Careem</label>
+                            <label><input type="checkbox" name="platforms" value="toters"> Toters</label>
+                            <label><input type="checkbox" name="platforms" value="wakilni"> Wakilni</label>
+                            <label><input type="checkbox" name="platforms" value="none"> None yet</label>
+                        </fieldset>
+
+                        <label class="field field-full">
+                            <span data-i18n="fieldAdditional">Additional information</span>
+                            <textarea id="additionalInfo" name="additionalInfo" rows="5" placeholder="Tell us what role you want to play, which areas you cover, and anything else we should know." data-i18n-placeholder="additionalPlaceholder"></textarea>
+                        </label>
+
+                        <button class="btn btn-primary btn-submit" type="submit" data-i18n="applicationButton">Submit application</button>
+                        <p id="applicationStatus" class="form-status" aria-live="polite"></p>
+                    </form>
+                </div>
+            </section>
+        </main>
+
+        <footer class="site-footer">
+            <div>
+                <span class="footer-brand">Daberni</span>
+                <p data-i18n="footerText">Designed as the operating layer for local life in Lebanon.</p>
             </div>
-            <div class="footer-socials">
-                <a href="#"><i class="lucide-instagram"></i></a>
-                <a href="#"><i class="lucide-twitter"></i></a>
-                <a href="#"><i class="lucide-linkedin"></i></a>
+            <div class="footer-links">
+                <a href="#services" data-i18n="footerServices">Services</a>
+                <a href="#waitlist" data-i18n="footerWaitlist">Waitlist</a>
+                <a href="#operators" data-i18n="footerOperators">Operators</a>
             </div>
         </footer>
-
     </div>
 
+    <div id="serviceModal" class="service-modal" aria-hidden="true">
+        <div class="service-modal-backdrop" data-close-modal="true"></div>
+        <div class="service-modal-panel" role="dialog" aria-modal="true" aria-labelledby="serviceModalTitle">
+            <div class="service-modal-topbar">
+                <span id="serviceModalEyebrow" class="service-modal-eyebrow"></span>
+                <button class="service-modal-close" type="button" aria-label="Close" data-close-modal="true">×</button>
+            </div>
+            <div class="service-modal-hero">
+                <div class="service-modal-copy">
+                    <h2 id="serviceModalTitle"></h2>
+                    <p id="serviceModalOverview" class="service-modal-overview"></p>
+                </div>
+                <div class="service-modal-visuals">
+                    <img id="serviceModalPrimaryArt" class="service-modal-art primary" alt="">
+                    <img id="serviceModalSecondaryArt" class="service-modal-art secondary" alt="">
+                </div>
+            </div>
+            <div class="service-modal-body">
+                <section class="service-modal-section service-modal-section-main">
+                    <h3 id="serviceModalHowLabel"></h3>
+                    <ol id="serviceModalSteps" class="service-modal-list numbered"></ol>
+                </section>
+                <div class="service-modal-side">
+                    <section class="service-modal-section">
+                        <h3 id="serviceModalExamplesLabel"></h3>
+                        <ul id="serviceModalExamples" class="service-modal-list"></ul>
+                    </section>
+                    <section class="service-modal-section">
+                        <h3 id="serviceModalDetailsLabel"></h3>
+                        <div id="serviceModalDetails" class="service-modal-chips"></div>
+                    </section>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="dataStore.js"></script>
     <script src="script.js"></script>
 </body>
 </html>
