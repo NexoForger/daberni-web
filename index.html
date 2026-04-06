@@ -3,440 +3,839 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Daberni is Lebanon's super-app for mobility, food, shopping, courier, home services, health, travel, and entertainment.">
-    <title>Daberni | Sort Me Out</title>
+    <meta name="description" content="Daberni — Lebanon's super-app. One identity, one wallet, one trust layer for mobility, food, shopping, courier, home services, health, travel, and entertainment.">
+    <title>Daberni — Lebanon, sorted.</title>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800&family=Inter:wght@400;500;600;700;800&family=Tajawal:wght@500;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,400;0,700;0,800;0,900;1,900&family=Inter:wght@400;500;600;700&family=Tajawal:wght@500;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
 </head>
-<body class="daberni-page">
-    <canvas id="hexGridCanvas" aria-hidden="true"></canvas>
+<body>
+<canvas id="hexGridCanvas" aria-hidden="true"></canvas>
 
-    <div class="page-shell">
-        <header class="site-header">
-            <a class="brand" href="#top" aria-label="Daberni home">
-                <span class="brand-mark">D</span>
-                <span class="brand-copy">
-                    <span class="brand-name">Daberni</span>
-                    <span class="brand-tagline" data-i18n="brandTagline">Lebanon, sorted.</span>
-                </span>
-            </a>
-
-            <nav class="site-nav" aria-label="Primary">
-                <a href="#services" data-i18n="navServices">Services</a>
-                <a href="#platform" data-i18n="navPlatform">Platform</a>
-                <a href="#waitlist" data-i18n="navWaitlist">Waitlist</a>
-                <a href="#operators" data-i18n="navOperators">Operators</a>
-            </nav>
-
-            <div class="header-actions">
-                <a class="header-link" href="#waitlist" data-i18n="headerCta">Get early access</a>
-                <button id="langToggle" class="lang-toggle" type="button">العربية</button>
-            </div>
-        </header>
-
-        <main id="top">
-            <section class="hero-section">
-                <div class="hero-copy reveal">
-                    <p class="eyebrow" data-i18n="heroEyebrow">Light-theme super-app for local life in Lebanon</p>
-                    <h1 class="hero-title" data-i18n="heroTitle">Whatever you need handled, Daberni gets it done.</h1>
-                    <p class="hero-subtitle" data-i18n="heroSubtitle">
-                        One identity, one wallet, one trust layer, and one logistics brain built for the way Lebanon actually moves.
-                    </p>
-
-                    <div class="hero-actions">
-                        <a class="btn btn-primary" href="#waitlist" data-i18n="heroPrimary">Join the waitlist</a>
-                        <a class="btn btn-secondary" href="#operators" data-i18n="heroSecondary">Apply as an operator</a>
-                    </div>
-
-                    <div class="hero-metrics">
-                        <div class="metric-chip">
-                            <span class="metric-value">8</span>
-                            <span class="metric-label" data-i18n="metricServices">service verticals</span>
-                        </div>
-                        <div class="metric-chip">
-                            <span class="metric-value">1</span>
-                            <span class="metric-label" data-i18n="metricWallet">wallet and identity layer</span>
-                        </div>
-                        <div class="metric-chip">
-                            <span class="metric-value">Live</span>
-                            <span class="metric-label" data-i18n="metricLogistics">dispatch and operations layer</span>
-                        </div>
-                    </div>
-
-                    <div class="hero-notes">
-                        <div class="hero-note">
-                            <span class="hero-note-label" data-i18n="noteOneLabel">Built for</span>
-                            <strong data-i18n="noteOneValue">dense cities, neighborhood trust, and mixed payment behavior</strong>
-                        </div>
-                        <div class="hero-note">
-                            <span class="hero-note-label" data-i18n="noteTwoLabel">Designed to</span>
-                            <strong data-i18n="noteTwoValue">feel calm when everything around it is fragmented</strong>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="hero-panel reveal">
-                    <div class="hero-panel-card app-frame">
-                        <img class="hero-visual" src="assets/hero-city.svg" alt="Daberni city operations illustration">
-                        <div class="frame-topbar">
-                            <div>
-                                <p class="panel-label" data-i18n="commandLabel">Command bar</p>
-                                <div class="command-line" data-i18n="commandText">What do you need sorted?</div>
-                            </div>
-                            <span class="status-dot"></span>
-                        </div>
-
-                        <div class="route-card">
-                            <div class="route-stop pickup">
-                                <span class="route-point"></span>
-                                <div>
-                                    <span class="route-label" data-i18n="pickupLabel">Pickup</span>
-                                    <strong data-i18n="pickupValue">Hamra, Beirut</strong>
-                                </div>
-                            </div>
-                            <div class="route-line"></div>
-                            <div class="route-stop dropoff">
-                                <span class="route-point"></span>
-                                <div>
-                                    <span class="route-label" data-i18n="dropoffLabel">Dropoff</span>
-                                    <strong data-i18n="dropoffValue">Achrafieh, Sassine</strong>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="city-board">
-                            <div class="city-board-main">
-                                <div class="board-head">
-                                    <p class="panel-label" data-i18n="systemLabel">Operational layer</p>
-                                    <h2 data-i18n="systemTitle">Urban infrastructure with taste.</h2>
-                                </div>
-                                <ul class="signal-list">
-                                    <li data-i18n="signalOne">Live demand sensing across neighborhoods</li>
-                                    <li data-i18n="signalTwo">Dynamic dispatch by proximity</li>
-                                    <li data-i18n="signalThree">Unified trust, support, and payment memory</li>
-                                </ul>
-                            </div>
-
-                            <div class="board-side">
-                                <div class="mini-tile wallet">
-                                    <span class="mini-title" data-i18n="miniWalletTitle">Wallet</span>
-                                    <strong data-i18n="miniWalletValue">Cash, card, wallet, hybrid</strong>
-                                </div>
-                                <div class="mini-tile trust">
-                                    <span class="mini-title" data-i18n="miniTrustTitle">Trust</span>
-                                    <strong data-i18n="miniTrustValue">Ratings, reliability, audit trails</strong>
-                                </div>
-                                <div class="mini-tile eta">
-                                    <span class="mini-title" data-i18n="miniEtaTitle">Live ETA</span>
-                                    <strong data-i18n="miniEtaValue">6 min rider, 18 min groceries, 27 min courier</strong>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <section class="reality-strip reveal" aria-label="Local reality">
-                <article class="reality-card">
-                    <img class="reality-art" src="assets/reality-merchants.svg" alt="" aria-hidden="true">
-                    <span class="reality-index">01</span>
-                    <p data-i18n="realityOne">Informal merchants need structure without losing flexibility.</p>
-                </article>
-                <article class="reality-card">
-                    <img class="reality-art" src="assets/reality-users.svg" alt="" aria-hidden="true">
-                    <span class="reality-index">02</span>
-                    <p data-i18n="realityTwo">Users need speed, cash support, and clarity they can trust immediately.</p>
-                </article>
-                <article class="reality-card">
-                    <img class="reality-art" src="assets/reality-ops.svg" alt="" aria-hidden="true">
-                    <span class="reality-index">03</span>
-                    <p data-i18n="realityThree">Operations need live zone visibility, not another spreadsheet-driven mess.</p>
-                </article>
-            </section>
-
-            <section class="services-section reveal" id="services">
-                <div class="section-heading">
-                    <p class="section-kicker" data-i18n="servicesKicker">Product universe</p>
-                    <h2 data-i18n="servicesTitle">A single front door for every local need.</h2>
-                    <p data-i18n="servicesSubtitle">
-                        Designed to feel unified at the shell level, with clear service accents that help each vertical stay distinct.
-                    </p>
-                </div>
-
-                <div class="services-grid">
-                    <button class="service-card mobility feature-card" type="button" data-service="mobility" aria-haspopup="dialog" aria-controls="serviceModal">
-                        <img class="service-art" src="assets/service-mobility.svg" alt="" aria-hidden="true">
-                        <span class="service-index">01</span>
-                        <h3 data-i18n="serviceMobilityTitle">Mobility</h3>
-                        <p data-i18n="serviceMobilityBody">Ride-hailing for cars, bikes, and motorbikes with fast matching and strong ETA clarity.</p>
-                        <span class="service-meta" data-i18n="serviceMobilityMeta">Fastest entry point into the ecosystem</span>
-                    </button>
-                    <button class="service-card food" type="button" data-service="food" aria-haspopup="dialog" aria-controls="serviceModal">
-                        <img class="service-art" src="assets/service-food.svg" alt="" aria-hidden="true">
-                        <span class="service-index">02</span>
-                        <h3 data-i18n="serviceFoodTitle">Food</h3>
-                        <p data-i18n="serviceFoodBody">Restaurant ordering, pickup, and delivery with repeat actions that stay fast.</p>
-                    </button>
-                    <button class="service-card grocery tall-card" type="button" data-service="shopping" aria-haspopup="dialog" aria-controls="serviceModal">
-                        <img class="service-art" src="assets/service-shopping.svg" alt="" aria-hidden="true">
-                        <span class="service-index">03</span>
-                        <h3 data-i18n="serviceShoppingTitle">Shopping</h3>
-                        <p data-i18n="serviceShoppingBody">Groceries, pharmacy, essentials, and proxy shopping handled in one flow.</p>
-                        <span class="service-meta" data-i18n="serviceShoppingMeta">Partner stores, proxy shopping, substitution logic</span>
-                    </button>
-                    <button class="service-card courier" type="button" data-service="courier" aria-haspopup="dialog" aria-controls="serviceModal">
-                        <img class="service-art" src="assets/service-courier.svg" alt="" aria-hidden="true">
-                        <span class="service-index">04</span>
-                        <h3 data-i18n="serviceCourierTitle">Courier</h3>
-                        <p data-i18n="serviceCourierBody">Point-to-point parcel and document logistics with clear handoff visibility.</p>
-                    </button>
-                    <button class="service-card home" type="button" data-service="home" aria-haspopup="dialog" aria-controls="serviceModal">
-                        <img class="service-art" src="assets/service-home.svg" alt="" aria-hidden="true">
-                        <span class="service-index">05</span>
-                        <h3 data-i18n="serviceHomeTitle">Home services</h3>
-                        <p data-i18n="serviceHomeBody">Cleaning, maintenance, repairs, and technician dispatch without the usual chaos.</p>
-                    </button>
-                    <button class="service-card health" type="button" data-service="health" aria-haspopup="dialog" aria-controls="serviceModal">
-                        <img class="service-art" src="assets/service-health.svg" alt="" aria-hidden="true">
-                        <span class="service-index">06</span>
-                        <h3 data-i18n="serviceHealthTitle">Health</h3>
-                        <p data-i18n="serviceHealthBody">Pharmacy, clinics, appointments, and care support under a trusted identity layer.</p>
-                    </button>
-                    <button class="service-card travel" type="button" data-service="travel" aria-haspopup="dialog" aria-controls="serviceModal">
-                        <img class="service-art" src="assets/service-travel.svg" alt="" aria-hidden="true">
-                        <span class="service-index">07</span>
-                        <h3 data-i18n="serviceTravelTitle">Travel</h3>
-                        <p data-i18n="serviceTravelBody">Intercity coordination, airport support, and booking flows that feel calm under pressure.</p>
-                    </button>
-                    <button class="service-card entertainment" type="button" data-service="entertainment" aria-haspopup="dialog" aria-controls="serviceModal">
-                        <img class="service-art" src="assets/service-entertainment.svg" alt="" aria-hidden="true">
-                        <span class="service-index">08</span>
-                        <h3 data-i18n="serviceEntertainmentTitle">Entertainment</h3>
-                        <p data-i18n="serviceEntertainmentBody">Experiences, nightlife, and reservations managed with local context instead of generic listings.</p>
-                    </button>
-                </div>
-            </section>
-
-            <section class="platform-section reveal" id="platform">
-                <div class="section-heading">
-                    <p class="section-kicker" data-i18n="platformKicker">Platform thesis</p>
-                    <h2 data-i18n="platformTitle">Built for fragmented local reality, not for imported assumptions.</h2>
-                </div>
-
-                <div class="platform-grid">
-                    <article class="platform-card">
-                        <img class="platform-art" src="assets/platform-identity.svg" alt="" aria-hidden="true">
-                        <h3 data-i18n="platformCardOneTitle">One identity</h3>
-                        <p data-i18n="platformCardOneBody">Saved places, preferences, support history, and trust indicators stay portable across every vertical.</p>
-                    </article>
-                    <article class="platform-card">
-                        <img class="platform-art" src="assets/platform-wallet.svg" alt="" aria-hidden="true">
-                        <h3 data-i18n="platformCardTwoTitle">One wallet</h3>
-                        <p data-i18n="platformCardTwoBody">Cash, card, stored balance, and hybrid settlement work inside one payments layer.</p>
-                    </article>
-                    <article class="platform-card">
-                        <img class="platform-art" src="assets/platform-ops.svg" alt="" aria-hidden="true">
-                        <h3 data-i18n="platformCardThreeTitle">One logistics brain</h3>
-                        <p data-i18n="platformCardThreeBody">Dispatch, routing, and supply balancing work inside one operational system.</p>
-                    </article>
-                    <article class="platform-card">
-                        <img class="platform-art" src="assets/platform-trust.svg" alt="" aria-hidden="true">
-                        <h3 data-i18n="platformCardFourTitle">One trust memory</h3>
-                        <p data-i18n="platformCardFourBody">Ratings, reliability, escalation trails, and provider history reduce uncertainty every time.</p>
-                    </article>
-                </div>
-
-            </section>
-
-            <section class="forms-section">
-                <div class="forms-sidebar">
-                    <div class="waitlist-card reveal" id="waitlist">
-                        <img class="section-asset waitlist-asset" src="assets/waitlist-orbit.svg" alt="Early access illustration">
-                        <div class="section-heading left">
-                            <p class="section-kicker" data-i18n="waitlistKicker">Early access</p>
-                            <h2 data-i18n="waitlistTitle">Join the Daberni waitlist.</h2>
-                            <p data-i18n="waitlistBody">Get launch updates, city rollout news, and first access when the product opens.</p>
-                        </div>
-
-                        <form id="subscribeForm" class="subscribe-form">
-                            <label class="sr-only" for="subscribeEmail" data-i18n="emailLabel">Email address</label>
-                            <input
-                                id="subscribeEmail"
-                                name="email"
-                                type="email"
-                                required
-                                autocomplete="email"
-                                placeholder="name@example.com"
-                                data-i18n-placeholder="emailPlaceholder"
-                            >
-                            <button class="btn btn-primary" type="submit" data-i18n="waitlistButton">Request early access</button>
-                        </form>
-                        <p id="subscribeStatus" class="form-status" aria-live="polite"></p>
-                    </div>
-
-                    <div class="suggestion-card reveal" id="suggestions">
-                        <img class="section-asset suggestion-asset" src="assets/suggestion-tiles.svg" alt="Suggestions illustration">
-                        <div class="section-heading left">
-                            <p class="section-kicker" data-i18n="suggestionsKicker">Product suggestions</p>
-                            <h2 data-i18n="suggestionsTitle">What should Daberni sort out next?</h2>
-                            <p data-i18n="suggestionsBody">Share a category, workflow, or local pain point you want us to solve.</p>
-                        </div>
-
-                        <form id="suggestionForm" class="suggestion-form">
-                            <label class="field">
-                                <span data-i18n="fieldSuggestionName">Your name</span>
-                                <input id="suggestionName" name="suggestionName" type="text" placeholder="Rana Haddad" data-i18n-placeholder="suggestionNamePlaceholder">
-                            </label>
-                            <label class="field field-full">
-                                <span data-i18n="fieldSuggestion">Your suggestion</span>
-                                <textarea id="suggestionText" name="suggestionText" rows="4" required placeholder="Add pharmacy delivery, neighborhood errands, scheduled pickups, or anything else that matters." data-i18n-placeholder="suggestionPlaceholder"></textarea>
-                            </label>
-                            <button class="btn btn-secondary btn-submit" type="submit" data-i18n="suggestionButton">Send suggestion</button>
-                            <p id="suggestionStatus" class="form-status" aria-live="polite"></p>
-                        </form>
-                    </div>
-                </div>
-
-                <div class="operator-card reveal" id="operators">
-                    <img class="section-asset operator-asset" src="assets/operator-badge.svg" alt="Operator application illustration">
-                    <div class="section-heading left">
-                        <p class="section-kicker" data-i18n="operatorsKicker">Operator network</p>
-                        <h2 data-i18n="operatorsTitle">Apply as a driver or operator.</h2>
-                        <p data-i18n="operatorsBody">We are building the first supply network before launch. Apply if you want to drive, deliver, or help run the network on day one.</p>
-                    </div>
-
-                    <form id="applicationForm" class="application-form">
-                        <div class="form-grid">
-                            <label class="field">
-                                <span data-i18n="fieldName">Full name</span>
-                                <input id="name" name="name" type="text" required placeholder="Mohammad Khoury" data-i18n-placeholder="namePlaceholder">
-                            </label>
-                            <label class="field">
-                                <span data-i18n="fieldPhone">Phone number</span>
-                                <input id="phone" name="phone" type="tel" required placeholder="+961 70 000 000" data-i18n-placeholder="phonePlaceholder">
-                            </label>
-                            <label class="field">
-                                <span data-i18n="fieldEmail">Email address</span>
-                                <input id="email" name="email" type="email" required placeholder="name@example.com" data-i18n-placeholder="emailPlaceholder">
-                            </label>
-                            <label class="field">
-                                <span data-i18n="fieldCity">City / area</span>
-                                <input id="city" name="city" type="text" required placeholder="Beirut" data-i18n-placeholder="cityPlaceholder">
-                            </label>
-                            <label class="field">
-                                <span data-i18n="fieldVehicleType">Vehicle type</span>
-                                <select id="vehicleType" name="vehicleType" required>
-                                    <option value="" data-i18n="vehicleDefault">Select a vehicle</option>
-                                    <option value="motorbike" data-i18n="vehicleMotorbike">Motorbike</option>
-                                    <option value="car" data-i18n="vehicleCar">Car</option>
-                                    <option value="bike" data-i18n="vehicleBike">Bike</option>
-                                    <option value="van" data-i18n="vehicleVan">Van</option>
-                                </select>
-                            </label>
-                            <label class="field">
-                                <span data-i18n="fieldVehicleYear">Vehicle year</span>
-                                <input id="vehicleYear" name="vehicleYear" type="number" min="1990" max="2035" required placeholder="2021">
-                            </label>
-                            <label class="field">
-                                <span data-i18n="fieldLicense">License number</span>
-                                <input id="licenseNumber" name="licenseNumber" type="text" required placeholder="1234567">
-                            </label>
-                            <label class="field">
-                                <span data-i18n="fieldExperience">Years of experience</span>
-                                <select id="yearsExperience" name="yearsExperience" required>
-                                    <option value="" data-i18n="experienceDefault">Select experience</option>
-                                    <option value="0-1" data-i18n="experienceOne">0 to 1 year</option>
-                                    <option value="2-3" data-i18n="experienceTwo">2 to 3 years</option>
-                                    <option value="4-6" data-i18n="experienceThree">4 to 6 years</option>
-                                    <option value="7+" data-i18n="experienceFour">7+ years</option>
-                                </select>
-                            </label>
-                            <label class="field">
-                                <span data-i18n="fieldAvailability">Availability</span>
-                                <select id="availability" name="availability" required>
-                                    <option value="" data-i18n="availabilityDefault">Select availability</option>
-                                    <option value="full-time" data-i18n="availabilityFull">Full-time</option>
-                                    <option value="part-time" data-i18n="availabilityPart">Part-time</option>
-                                    <option value="weekends" data-i18n="availabilityWeekends">Weekends</option>
-                                    <option value="evenings" data-i18n="availabilityEvenings">Evenings</option>
-                                </select>
-                            </label>
-                        </div>
-
-                        <fieldset class="platform-checkboxes">
-                            <legend data-i18n="platformsLegend">Existing platform experience</legend>
-                            <label><input type="checkbox" name="platforms" value="uber"> Uber</label>
-                            <label><input type="checkbox" name="platforms" value="careem"> Careem</label>
-                            <label><input type="checkbox" name="platforms" value="toters"> Toters</label>
-                            <label><input type="checkbox" name="platforms" value="wakilni"> Wakilni</label>
-                            <label><input type="checkbox" name="platforms" value="none"> None yet</label>
-                        </fieldset>
-
-                        <label class="field field-full">
-                            <span data-i18n="fieldAdditional">Additional information</span>
-                            <textarea id="additionalInfo" name="additionalInfo" rows="5" placeholder="Tell us what role you want to play, which areas you cover, and anything else we should know." data-i18n-placeholder="additionalPlaceholder"></textarea>
-                        </label>
-
-                        <button class="btn btn-primary btn-submit" type="submit" data-i18n="applicationButton">Submit application</button>
-                        <p id="applicationStatus" class="form-status" aria-live="polite"></p>
-                    </form>
-                </div>
-            </section>
-        </main>
-
-        <footer class="site-footer">
-            <div>
-                <span class="footer-brand">Daberni</span>
-                <p data-i18n="footerText">Designed as the operating layer for local life in Lebanon.</p>
-            </div>
-            <div class="footer-links">
-                <a href="#services" data-i18n="footerServices">Services</a>
-                <a href="#waitlist" data-i18n="footerWaitlist">Waitlist</a>
-                <a href="#operators" data-i18n="footerOperators">Operators</a>
-            </div>
-        </footer>
+<!-- ━━━ NAV ━━━ -->
+<header class="nav">
+    <div class="nav-inner">
+        <a class="logo" href="#top" aria-label="Daberni">
+            <span class="logo-hex">D</span>
+            <span class="logo-name">Daberni</span>
+        </a>
+        <nav class="nav-links" aria-label="Primary">
+            <a href="#services" data-i18n="navServices">Services</a>
+            <a href="#platform" data-i18n="navPlatform">Platform</a>
+            <a href="#waitlist" data-i18n="navWaitlist">Waitlist</a>
+            <a href="#operators" data-i18n="navOperators">Operators</a>
+        </nav>
+        <div class="nav-end">
+            <button id="langToggle" class="lang-btn" type="button">العربية</button>
+        </div>
     </div>
+</header>
 
-    <div id="serviceModal" class="service-modal" aria-hidden="true">
-        <div class="service-modal-backdrop" data-close-modal="true"></div>
-        <div class="service-modal-panel" role="dialog" aria-modal="true" aria-labelledby="serviceModalTitle">
-            <div class="service-modal-topbar">
-                <span id="serviceModalEyebrow" class="service-modal-eyebrow"></span>
-                <button class="service-modal-close" type="button" aria-label="Close" data-close-modal="true">×</button>
+<main id="top">
+
+<!-- ━━━ HERO — SPLIT SCREEN ━━━ -->
+<section class="hero">
+    <!-- dark left panel -->
+    <div class="hero-dark hero-visible">
+        <!-- Decorative SVG grid -->
+        <svg class="hero-grid-svg" width="400" height="400" viewBox="0 0 400 400" fill="none" aria-hidden="true">
+            <defs>
+                <pattern id="heroGrid" x="0" y="0" width="40" height="40" patternUnits="userSpaceOnUse">
+                    <path d="M40 0H0V40" fill="none" stroke="rgba(0,184,217,0.06)" stroke-width="1"/>
+                </pattern>
+                <radialGradient id="heroGridFade" cx="50%" cy="50%" r="50%">
+                    <stop offset="0%" stop-color="white" stop-opacity="1"/>
+                    <stop offset="100%" stop-color="white" stop-opacity="0"/>
+                </radialGradient>
+                <mask id="heroGridMask"><rect width="400" height="400" fill="url(#heroGridFade)"/></mask>
+            </defs>
+            <rect width="400" height="400" fill="url(#heroGrid)" mask="url(#heroGridMask)"/>
+        </svg>
+        <!-- Decorative hex shapes -->
+        <svg class="hero-hex-svg" width="120" height="140" viewBox="0 0 120 140" fill="none" aria-hidden="true">
+            <path d="M60 5L110 35V95L60 125L10 95V35L60 5Z" stroke="rgba(0,184,217,0.1)" stroke-width="1.5"/>
+            <path d="M60 25L90 42V78L60 95L30 78V42L60 25Z" stroke="rgba(0,184,217,0.06)" stroke-width="1"/>
+        </svg>
+        <div class="hero-dark-inner">
+            <div class="hero-label">
+                <span class="pulse"></span>
+                <span data-i18n="heroEyebrow">Built for the way Lebanon actually moves</span>
             </div>
-            <div class="service-modal-hero">
-                <div class="service-modal-copy">
-                    <h2 id="serviceModalTitle"></h2>
-                    <p id="serviceModalOverview" class="service-modal-overview"></p>
-                </div>
-                <div class="service-modal-visuals">
-                    <img id="serviceModalPrimaryArt" class="service-modal-art primary" alt="">
-                    <img id="serviceModalSecondaryArt" class="service-modal-art secondary" alt="">
-                </div>
+
+            <h1 class="hero-headline">
+                <span class="line-one" data-i18n-raw="heroLineOne">Everything</span>
+                <span class="line-two" data-i18n-raw="heroLineTwo">handled.</span>
+            </h1>
+
+            <p class="hero-sub" data-i18n="heroSubtitle">
+                One identity, one wallet, one trust layer, and one operating system for rides, food, errands, and everything in between.
+            </p>
+
+            <div class="hero-btns">
+                <a class="btn-solid" href="#waitlist" data-i18n="heroPrimary">Get the app</a>
+                <a class="btn-ghost-dark" href="#operators" data-i18n="heroSecondary">Become a partner</a>
             </div>
-            <div class="service-modal-body">
-                <section class="service-modal-section service-modal-section-main">
-                    <h3 id="serviceModalHowLabel"></h3>
-                    <ol id="serviceModalSteps" class="service-modal-list numbered"></ol>
-                </section>
-                <div class="service-modal-side">
-                    <section class="service-modal-section">
-                        <h3 id="serviceModalExamplesLabel"></h3>
-                        <ul id="serviceModalExamples" class="service-modal-list"></ul>
-                    </section>
-                    <section class="service-modal-section">
-                        <h3 id="serviceModalDetailsLabel"></h3>
-                        <div id="serviceModalDetails" class="service-modal-chips"></div>
-                    </section>
+
+            <div class="hero-stats">
+                <div class="stat">
+                    <span class="stat-n">8</span>
+                    <span class="stat-l" data-i18n="metricServices">service verticals</span>
+                </div>
+                <div class="stat-div"></div>
+                <div class="stat">
+                    <span class="stat-n">1</span>
+                    <span class="stat-l" data-i18n="metricWallet">wallet &amp; identity layer</span>
+                </div>
+                <div class="stat-div"></div>
+                <div class="stat">
+                    <span class="stat-n">Live</span>
+                    <span class="stat-l" data-i18n="metricLogistics">dispatch &amp; ops layer</span>
                 </div>
             </div>
         </div>
     </div>
 
-    <script src="dataStore.js"></script>
-    <script src="script.js"></script>
+    <!-- light right panel -->
+    <div class="hero-light hero-visible">
+        <div class="hero-light-inner">
+            <!-- App frame -->
+            <div class="phone-frame">
+                <div class="phone-top">
+                    <span class="phone-time">9:41</span>
+                    <div class="phone-notch"></div>
+                    <div class="phone-bars">
+                        <span></span><span></span><span></span>
+                    </div>
+                </div>
+
+                <div class="phone-search">
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+                    <span data-i18n="commandText">What do you need sorted today?</span>
+                </div>
+
+                <div class="phone-grid">
+                    <div class="pg-item mob">
+                        <span class="pgi-icon">🛵</span>
+                        <span data-i18n="serviceMobilityTitle">Mobility</span>
+                    </div>
+                    <div class="pg-item fd">
+                        <span class="pgi-icon">🍽️</span>
+                        <span data-i18n="serviceFoodTitle">Food</span>
+                    </div>
+                    <div class="pg-item sh">
+                        <span class="pgi-icon">🛍️</span>
+                        <span data-i18n="serviceShoppingTitle">Shopping</span>
+                    </div>
+                    <div class="pg-item co">
+                        <span class="pgi-icon">📦</span>
+                        <span data-i18n="serviceCourierTitle">Courier</span>
+                    </div>
+                    <div class="pg-item hm">
+                        <span class="pgi-icon">🏠</span>
+                        <span data-i18n="serviceHomeTitle">Home</span>
+                    </div>
+                    <div class="pg-item hl">
+                        <span class="pgi-icon">💊</span>
+                        <span data-i18n="serviceHealthTitle">Health</span>
+                    </div>
+                    <div class="pg-item tr">
+                        <span class="pgi-icon">✈️</span>
+                        <span data-i18n="serviceTravelTitle">Travel</span>
+                    </div>
+                    <div class="pg-item en">
+                        <span class="pgi-icon">🎭</span>
+                        <span data-i18n="serviceEntertainmentTitle">Entertainment</span>
+                    </div>
+                </div>
+
+                <div class="phone-ride">
+                    <div class="ride-head">
+                        <div class="ride-live">
+                            <span class="live-dot"></span>
+                            <span data-i18n="miniEtaTitle">Live ETA</span>
+                        </div>
+                        <strong class="ride-eta">6 min</strong>
+                    </div>
+                    <div class="ride-route">
+                        <div class="rr-stop">
+                            <span class="rr-dot cyan"></span>
+                            <div><span class="rr-l" data-i18n="pickupLabel">Pickup</span><strong data-i18n="pickupValue">Hamra, Beirut</strong></div>
+                        </div>
+                        <div class="rr-line"></div>
+                        <div class="rr-stop">
+                            <span class="rr-dot red"></span>
+                            <div><span class="rr-l" data-i18n="dropoffLabel">Dropoff</span><strong data-i18n="dropoffValue">Achrafieh, Sassine</strong></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="phone-wallet">
+                    <span class="pw-label" data-i18n="miniWalletTitle">Wallet</span>
+                    <span class="pw-val">Cash · Card · Balance</span>
+                    <span class="pw-sep"></span>
+                    <span class="pw-label" data-i18n="miniTrustTitle">Trust</span>
+                    <span class="pw-val">Rated · Verified</span>
+                </div>
+            </div>
+
+            <!-- floating accent cards -->
+            <div class="float-card fc-a">
+                <span>⚡</span> Live dispatch
+            </div>
+            <div class="float-card fc-b">
+                <span>🗺️</span> H3 geospatial
+            </div>
+            <div class="float-card fc-c">
+                <span>🔒</span> Trusted identity
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ━━━ TICKER ━━━ -->
+<div class="ticker" aria-hidden="true">
+    <div class="ticker-rail">
+        <span class="t mob">● Mobility</span>
+        <span class="t fd">● Food</span>
+        <span class="t sh">● Shopping</span>
+        <span class="t co">● Courier</span>
+        <span class="t hm">● Home Services</span>
+        <span class="t hl">● Health</span>
+        <span class="t tr">● Travel</span>
+        <span class="t en">● Entertainment</span>
+        <span class="t mob">● Mobility</span>
+        <span class="t fd">● Food</span>
+        <span class="t sh">● Shopping</span>
+        <span class="t co">● Courier</span>
+        <span class="t hm">● Home Services</span>
+        <span class="t hl">● Health</span>
+        <span class="t tr">● Travel</span>
+        <span class="t en">● Entertainment</span>
+    </div>
+</div>
+
+<!-- ━━━ REALITY STRIP ━━━ -->
+<div class="deco-float" aria-hidden="true">
+    <svg class="deco-blob deco-blob-1" width="80" height="80" viewBox="0 0 80 80" fill="none"><circle cx="40" cy="40" r="30" fill="var(--cyan)" opacity=".04"/><circle cx="40" cy="40" r="18" fill="var(--cyan)" opacity=".03"/></svg>
+    <svg class="deco-blob deco-blob-2" width="60" height="60" viewBox="0 0 60 60" fill="none"><path d="M30 5C45 5 55 20 55 30S45 55 30 55S5 40 5 30S15 5 30 5Z" fill="var(--cyan)" opacity=".03"/></svg>
+    <svg class="deco-blob deco-blob-3" width="40" height="40" viewBox="0 0 40 40" fill="none"><rect x="8" y="8" width="24" height="24" rx="6" transform="rotate(15 20 20)" fill="var(--cyan)" opacity=".04"/></svg>
+</div>
+<section class="reality">
+    <div class="reality-inner reveal">
+        <div class="r-fact">
+            <span class="r-num">01</span>
+            <p data-i18n="realityOne">Neighborhood merchants need structure without losing the flexibility they already live on.</p>
+        </div>
+        <div class="r-divider"></div>
+        <div class="r-fact">
+            <span class="r-num">02</span>
+            <p data-i18n="realityTwo">People need speed, cash support, and updates they can trust right away.</p>
+        </div>
+        <div class="r-divider"></div>
+        <div class="r-fact">
+            <span class="r-num">03</span>
+            <p data-i18n="realityThree">Ops teams need live visibility across Beirut, Metn, Jounieh, and beyond.</p>
+        </div>
+    </div>
+</section>
+
+<div class="section-divider"><svg width="100%" height="32" viewBox="0 0 800 32" preserveAspectRatio="xMidYMid meet" fill="none" aria-hidden="true"><line x1="200" y1="16" x2="350" y2="16" stroke="var(--cyan)" stroke-width="1" opacity=".15"/><circle cx="400" cy="16" r="3" fill="var(--cyan)" opacity=".2"/><line x1="450" y1="16" x2="600" y2="16" stroke="var(--cyan)" stroke-width="1" opacity=".15"/></svg></div>
+
+<!-- ━━━ HOW IT WORKS ━━━ -->
+<section class="how-it-works reveal">
+    <div class="sec-head centered">
+        <p class="kicker">How it works</p>
+        <h2>Three steps. That's it.</h2>
+    </div>
+    <div class="hiw-grid">
+        <div class="hiw-step">
+            <div class="hiw-icon">
+                <svg width="56" height="56" viewBox="0 0 56 56" fill="none" aria-hidden="true"><rect x="14" y="8" width="28" height="40" rx="6" stroke="var(--cyan)" stroke-width="2.5"/><rect x="22" y="40" width="12" height="2" rx="1" fill="var(--cyan)"/><circle cx="28" cy="16" r="2" fill="var(--cyan)" opacity=".4"/><rect x="20" y="22" width="16" height="3" rx="1.5" fill="var(--cyan)" opacity=".3"/><rect x="20" y="28" width="10" height="3" rx="1.5" fill="var(--cyan)" opacity=".2"/></svg>
+            </div>
+            <div class="hiw-num">1</div>
+            <h2>Open the app</h2>
+            <p>Download Daberni and sign up in seconds. One account for everything.</p>
+        </div>
+        <div class="hiw-connector">
+            <svg width="100%" height="2" aria-hidden="true"><line x1="0" y1="1" x2="100%" y2="1" stroke="url(#connGrad)" stroke-width="2" stroke-dasharray="6 4"/><defs><linearGradient id="connGrad"><stop offset="0%" stop-color="var(--cyan)"/><stop offset="100%" stop-color="var(--cyan)" stop-opacity="0.15"/></linearGradient></defs></svg>
+        </div>
+        <div class="hiw-step">
+            <div class="hiw-icon">
+                <svg width="56" height="56" viewBox="0 0 56 56" fill="none" aria-hidden="true"><circle cx="28" cy="28" r="16" stroke="var(--cyan)" stroke-width="2.5"/><circle cx="28" cy="28" r="8" stroke="var(--cyan)" stroke-width="2" opacity=".5"/><circle cx="28" cy="28" r="3" fill="var(--cyan)"/><path d="M28 12V8M28 48V44M12 28H8M48 28H44" stroke="var(--cyan)" stroke-width="2" stroke-linecap="round" opacity=".3"/></svg>
+            </div>
+            <div class="hiw-num">2</div>
+            <h2>Choose what you need</h2>
+            <p>Rides, food, groceries, courier, or any of our 8 services. All in one place.</p>
+        </div>
+        <div class="hiw-connector">
+            <svg width="100%" height="2" aria-hidden="true"><line x1="0" y1="1" x2="100%" y2="1" stroke="url(#connGrad2)" stroke-width="2" stroke-dasharray="6 4"/><defs><linearGradient id="connGrad2"><stop offset="0%" stop-color="var(--cyan)"/><stop offset="100%" stop-color="var(--cyan)" stop-opacity="0.15"/></linearGradient></defs></svg>
+        </div>
+        <div class="hiw-step">
+            <div class="hiw-icon">
+                <svg width="56" height="56" viewBox="0 0 56 56" fill="none" aria-hidden="true"><circle cx="28" cy="28" r="18" stroke="var(--cyan)" stroke-width="2.5" opacity=".3"/><path d="M18 28L25 35L38 22" stroke="var(--cyan)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/><path d="M28 8V12M28 44V48M8 28H12M44 28H48" stroke="var(--cyan)" stroke-width="1.5" stroke-linecap="round" opacity=".15"/></svg>
+            </div>
+            <div class="hiw-num">3</div>
+            <h2>Sit back, it's handled</h2>
+            <p>Track everything in real-time. Pay with cash or card. Rate and repeat.</p>
+        </div>
+    </div>
+</section>
+
+<div class="trust-strip reveal">
+    <div class="trust-inner">
+        <span class="trust-badge"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--cyan)" stroke-width="2" stroke-linecap="round" aria-hidden="true"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/><circle cx="12" cy="16" r="1" fill="var(--cyan)"/></svg> End-to-end encrypted</span>
+        <span class="trust-badge"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--cyan)" stroke-width="2" stroke-linecap="round" aria-hidden="true"><rect x="1" y="4" width="22" height="16" rx="3"/><path d="M1 10h22"/><path d="M6 16h4"/></svg> Cash &amp; card accepted</span>
+        <span class="trust-badge"><svg width="20" height="14" viewBox="0 0 20 14" aria-hidden="true"><rect width="20" height="14" rx="1.5" fill="#fff"/><rect width="20" height="4" fill="#ED1C24"/><rect y="10" width="20" height="4" fill="#ED1C24"/><path d="M10 3.5c0 0-.8.8-.8 1.6 0 0-.7-.2-1.2.3.3.3.8.3.8.3s-.5.5-.3 1.2c.4-.2.7-.6.7-.6s.1.8.8 1.2c.7-.4.8-1.2.8-1.2s.3.4.7.6c.2-.7-.3-1.2-.3-1.2s.5 0 .8-.3c-.5-.5-1.2-.3-1.2-.3C10.8 4.3 10 3.5 10 3.5z" fill="#00A651"/><rect x="9.7" y="6.5" width=".6" height="4" rx=".3" fill="#6B3A1F"/></svg> 100% Lebanese-built</span>
+        <span class="trust-badge"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--cyan)" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3" fill="var(--cyan)" opacity=".3"/></svg> Beirut · Metn · Jounieh · Tripoli</span>
+    </div>
+</div>
+
+<div class="section-divider"><svg width="100%" height="32" viewBox="0 0 800 32" preserveAspectRatio="xMidYMid meet" fill="none" aria-hidden="true"><line x1="200" y1="16" x2="350" y2="16" stroke="var(--cyan)" stroke-width="1" opacity=".15"/><circle cx="400" cy="16" r="3" fill="var(--cyan)" opacity=".2"/><line x1="450" y1="16" x2="600" y2="16" stroke="var(--cyan)" stroke-width="1" opacity=".15"/></svg></div>
+
+<!-- ━━━ SERVICES — FULL-COLOR BENTO ━━━ -->
+<section class="services reveal" id="services">
+    <div class="sec-head">
+        <p class="kicker" data-i18n="servicesKicker">Product universe</p>
+        <h2 data-i18n="servicesTitle">One app for the things people in Lebanon actually do every day.</h2>
+        <p class="sec-sub" data-i18n="servicesSubtitle">From a quick ride in Hamra to a pharmacy run for your family, the system stays simple while each service keeps its own character.</p>
+    </div>
+
+    <div class="svc-bento">
+        <!-- Mobility featured -->
+        <button class="sc sc-mob sc-big service-card" type="button" data-service="mobility" aria-haspopup="dialog" aria-controls="serviceModal">
+            <svg class="sc-deco" width="200" height="200" viewBox="0 0 200 200" fill="none" aria-hidden="true"><circle cx="160" cy="40" r="60" stroke="rgba(255,255,255,.1)" stroke-width="1"/><circle cx="160" cy="40" r="40" stroke="rgba(255,255,255,.06)" stroke-width="1"/><path d="M20 180Q60 140 100 160T180 120" stroke="rgba(255,255,255,.06)" stroke-width="1.5" fill="none"/></svg>
+            <div class="sc-inner">
+                <span class="sc-num">01</span>
+                <img class="sc-art" src="assets/service-mobility.svg" alt="" aria-hidden="true">
+                <h2 data-i18n="serviceMobilityTitle">Mobility</h2>
+                <p data-i18n="serviceMobilityBody">Ride-hailing for cars, bikes, and motorbikes with fast matching and strong ETA clarity.</p>
+                <span class="sc-meta" data-i18n="serviceMobilityMeta">For school runs, commutes, airport pickups, and late-night rides home</span>
+                <span class="sc-arrow">↗</span>
+            </div>
+        </button>
+
+        <!-- Food -->
+        <button class="sc sc-food service-card" type="button" data-service="food" aria-haspopup="dialog" aria-controls="serviceModal">
+            <svg class="sc-deco" width="120" height="120" viewBox="0 0 120 120" fill="none" aria-hidden="true"><circle cx="90" cy="30" r="40" stroke="rgba(255,255,255,.1)" stroke-width="1"/><circle cx="20" cy="100" r="30" stroke="rgba(255,255,255,.06)" stroke-width="1"/></svg>
+            <div class="sc-inner">
+                <span class="sc-num">02</span>
+                <img class="sc-art" src="assets/service-food.svg" alt="" aria-hidden="true">
+                <h2 data-i18n="serviceFoodTitle">Food</h2>
+                <p data-i18n="serviceFoodBody">Restaurant ordering, pickup, and delivery with repeat actions that stay fast.</p>
+                <span class="sc-arrow">↗</span>
+            </div>
+        </button>
+
+        <!-- Shopping — tall -->
+        <button class="sc sc-grocery sc-tall service-card" type="button" data-service="shopping" aria-haspopup="dialog" aria-controls="serviceModal">
+            <svg class="sc-deco" width="120" height="200" viewBox="0 0 120 200" fill="none" aria-hidden="true"><rect x="70" y="10" width="60" height="60" rx="12" transform="rotate(15 100 40)" stroke="rgba(255,255,255,.08)" stroke-width="1"/><circle cx="30" cy="170" r="35" stroke="rgba(255,255,255,.06)" stroke-width="1"/></svg>
+            <div class="sc-inner">
+                <span class="sc-num">03</span>
+                <img class="sc-art" src="assets/service-shopping.svg" alt="" aria-hidden="true">
+                <h2 data-i18n="serviceShoppingTitle">Shopping</h2>
+                <p data-i18n="serviceShoppingBody">Groceries, pharmacy, essentials, and proxy shopping handled in one flow.</p>
+                <span class="sc-meta" data-i18n="serviceShoppingMeta">From supermarket baskets to pharmacy stops and last-minute neighborhood errands</span>
+                <span class="sc-arrow">↗</span>
+            </div>
+        </button>
+
+        <!-- Courier -->
+        <button class="sc sc-courier service-card" type="button" data-service="courier" aria-haspopup="dialog" aria-controls="serviceModal">
+            <svg class="sc-deco" width="120" height="120" viewBox="0 0 120 120" fill="none" aria-hidden="true"><path d="M10 110L50 70L90 90L110 10" stroke="rgba(255,255,255,.08)" stroke-width="1.5" fill="none"/><circle cx="50" cy="70" r="4" fill="rgba(255,255,255,.1)"/><circle cx="90" cy="90" r="3" fill="rgba(255,255,255,.08)"/></svg>
+            <div class="sc-inner">
+                <span class="sc-num">04</span>
+                <img class="sc-art" src="assets/service-courier.svg" alt="" aria-hidden="true">
+                <h2 data-i18n="serviceCourierTitle">Courier</h2>
+                <p data-i18n="serviceCourierBody">Point-to-point parcel and document logistics with clear handoff visibility.</p>
+                <span class="sc-arrow">↗</span>
+            </div>
+        </button>
+
+        <!-- Home -->
+        <button class="sc sc-home service-card" type="button" data-service="home" aria-haspopup="dialog" aria-controls="serviceModal">
+            <svg class="sc-deco" width="120" height="120" viewBox="0 0 120 120" fill="none" aria-hidden="true"><path d="M60 10L100 45V100H20V45L60 10Z" stroke="rgba(255,255,255,.07)" stroke-width="1" fill="none"/><rect x="45" y="65" width="30" height="35" rx="3" stroke="rgba(255,255,255,.05)" stroke-width="1"/></svg>
+            <div class="sc-inner">
+                <span class="sc-num">05</span>
+                <img class="sc-art" src="assets/service-home.svg" alt="" aria-hidden="true">
+                <h2 data-i18n="serviceHomeTitle">Home Services</h2>
+                <p data-i18n="serviceHomeBody">Cleaning, maintenance, repairs, and technician dispatch without the usual chaos.</p>
+                <span class="sc-arrow">↗</span>
+            </div>
+        </button>
+
+        <!-- Health -->
+        <button class="sc sc-health service-card" type="button" data-service="health" aria-haspopup="dialog" aria-controls="serviceModal">
+            <svg class="sc-deco" width="120" height="120" viewBox="0 0 120 120" fill="none" aria-hidden="true"><path d="M60 20V100M20 60H100" stroke="rgba(255,255,255,.1)" stroke-width="8" stroke-linecap="round"/></svg>
+            <div class="sc-inner">
+                <span class="sc-num">06</span>
+                <img class="sc-art" src="assets/service-health.svg" alt="" aria-hidden="true">
+                <h2 data-i18n="serviceHealthTitle">Health</h2>
+                <p data-i18n="serviceHealthBody">Pharmacy, clinics, appointments, and care support under a trusted identity layer.</p>
+                <span class="sc-arrow">↗</span>
+            </div>
+        </button>
+
+        <!-- Travel -->
+        <button class="sc sc-travel service-card" type="button" data-service="travel" aria-haspopup="dialog" aria-controls="serviceModal">
+            <svg class="sc-deco" width="120" height="120" viewBox="0 0 120 120" fill="none" aria-hidden="true"><circle cx="60" cy="60" r="40" stroke="rgba(255,255,255,.08)" stroke-width="1"/><ellipse cx="60" cy="60" rx="15" ry="40" stroke="rgba(255,255,255,.06)" stroke-width="1"/><line x1="20" y1="60" x2="100" y2="60" stroke="rgba(255,255,255,.05)" stroke-width="1"/></svg>
+            <div class="sc-inner">
+                <span class="sc-num">07</span>
+                <img class="sc-art" src="assets/service-travel.svg" alt="" aria-hidden="true">
+                <h2 data-i18n="serviceTravelTitle">Travel</h2>
+                <p data-i18n="serviceTravelBody">Intercity coordination, airport support, and booking flows that feel calm under pressure.</p>
+                <span class="sc-arrow">↗</span>
+            </div>
+        </button>
+
+        <!-- Entertainment -->
+        <button class="sc sc-entertainment service-card" type="button" data-service="entertainment" aria-haspopup="dialog" aria-controls="serviceModal">
+            <svg class="sc-deco" width="120" height="120" viewBox="0 0 120 120" fill="none" aria-hidden="true"><circle cx="40" cy="40" r="8" fill="rgba(255,255,255,.06)"/><circle cx="80" cy="30" r="5" fill="rgba(255,255,255,.04)"/><circle cx="60" cy="80" r="12" fill="rgba(255,255,255,.03)"/><circle cx="90" cy="90" r="6" fill="rgba(255,255,255,.05)"/><path d="M30 90L50 60L70 75L100 30" stroke="rgba(255,255,255,.06)" stroke-width="1" fill="none"/></svg>
+            <div class="sc-inner">
+                <span class="sc-num">08</span>
+                <img class="sc-art" src="assets/service-entertainment.svg" alt="" aria-hidden="true">
+                <h2 data-i18n="serviceEntertainmentTitle">Entertainment</h2>
+                <p data-i18n="serviceEntertainmentBody">Experiences, nightlife, and reservations managed with local context instead of generic listings.</p>
+                <span class="sc-arrow">↗</span>
+            </div>
+        </button>
+    </div>
+</section>
+
+<div class="section-divider"><svg width="100%" height="32" viewBox="0 0 800 32" preserveAspectRatio="xMidYMid meet" fill="none" aria-hidden="true"><line x1="200" y1="16" x2="350" y2="16" stroke="var(--cyan)" stroke-width="1" opacity=".15"/><circle cx="400" cy="16" r="3" fill="var(--cyan)" opacity=".2"/><line x1="450" y1="16" x2="600" y2="16" stroke="var(--cyan)" stroke-width="1" opacity=".15"/></svg></div>
+
+<!-- ━━━ PLATFORM PILLARS — DARK ━━━ -->
+<section class="platform reveal" id="platform">
+    <svg class="platform-deco-svg" width="300" height="300" viewBox="0 0 300 300" fill="none" aria-hidden="true">
+        <defs>
+            <pattern id="platDots" x="0" y="0" width="24" height="24" patternUnits="userSpaceOnUse">
+                <circle cx="2" cy="2" r="1" fill="rgba(0,184,217,0.12)"/>
+            </pattern>
+            <radialGradient id="platFade" cx="50%" cy="50%" r="50%">
+                <stop offset="0%" stop-color="white" stop-opacity="1"/>
+                <stop offset="100%" stop-color="white" stop-opacity="0"/>
+            </radialGradient>
+            <mask id="platMask"><rect width="300" height="300" fill="url(#platFade)"/></mask>
+        </defs>
+        <rect width="300" height="300" fill="url(#platDots)" mask="url(#platMask)"/>
+    </svg>
+    <div class="platform-inner">
+        <div class="platform-head">
+            <p class="kicker kicker-light" data-i18n="platformKicker">Platform thesis</p>
+            <h2 data-i18n="platformTitle">Made for Lebanon, not pasted in from somewhere else.</h2>
+        </div>
+        <div class="platform-grid">
+            <article class="p-card">
+                <span class="p-num">01</span>
+                <img src="assets/platform-identity.svg" alt="" aria-hidden="true" class="p-art">
+                <h2 data-i18n="platformCardOneTitle">One identity</h2>
+                <p data-i18n="platformCardOneBody">Saved places, preferences, support history, and trust indicators stay portable across every vertical.</p>
+            </article>
+            <article class="p-card">
+                <span class="p-num">02</span>
+                <img src="assets/platform-wallet.svg" alt="" aria-hidden="true" class="p-art">
+                <h2 data-i18n="platformCardTwoTitle">One wallet</h2>
+                <p data-i18n="platformCardTwoBody">Cash, card, stored balance, and hybrid settlement work inside one payments layer.</p>
+            </article>
+            <article class="p-card">
+                <span class="p-num">03</span>
+                <img src="assets/platform-ops.svg" alt="" aria-hidden="true" class="p-art">
+                <h2 data-i18n="platformCardThreeTitle">One logistics brain</h2>
+                <p data-i18n="platformCardThreeBody">Dispatch, routing, and supply balancing work inside one operational system.</p>
+            </article>
+            <article class="p-card">
+                <span class="p-num">04</span>
+                <img src="assets/platform-trust.svg" alt="" aria-hidden="true" class="p-art">
+                <h2 data-i18n="platformCardFourTitle">One trust memory</h2>
+                <p data-i18n="platformCardFourBody">Ratings, reliability, escalation trails, and provider history reduce uncertainty every time.</p>
+            </article>
+        </div>
+    </div>
+</section>
+
+<div class="section-divider"><svg width="100%" height="32" viewBox="0 0 800 32" preserveAspectRatio="xMidYMid meet" fill="none" aria-hidden="true"><line x1="200" y1="16" x2="350" y2="16" stroke="var(--cyan)" stroke-width="1" opacity=".15"/><circle cx="400" cy="16" r="3" fill="var(--cyan)" opacity=".2"/><line x1="450" y1="16" x2="600" y2="16" stroke="var(--cyan)" stroke-width="1" opacity=".15"/></svg></div>
+
+<!-- ━━━ FOOD INTELLIGENCE ━━━ -->
+<section class="intelligence reveal">
+    <div class="intel-inner">
+        <div class="intel-copy">
+            <p class="kicker">Food &amp; grocery intelligence</p>
+            <h2>Smarter food decisions, built into every order.</h2>
+            <p class="sec-sub">Daberni goes beyond listings. Every food and grocery item carries the metadata users actually need — so they can order safely and without guessing.</p>
+
+            <div class="intel-facts">
+                <div class="if-row">
+                    <span class="if-icon">⚠️</span>
+                    <div>
+                        <strong>Allergen indicators</strong>
+                        <p>Milk, eggs, nuts, sesame, soy, wheat, fish, shellfish — visible on every product card, never buried in fine print.</p>
+                    </div>
+                </div>
+                <div class="if-row">
+                    <span class="if-icon">🌿</span>
+                    <div>
+                        <strong>Dietary restriction filters</strong>
+                        <p>Vegetarian, vegan, halal, gluten-free, dairy-free, low-sugar, high-protein, and organic — global profile preferences built into search.</p>
+                    </div>
+                </div>
+                <div class="if-row">
+                    <span class="if-icon">🕐</span>
+                    <div>
+                        <strong>Freshness &amp; expiry tracking</strong>
+                        <p>Fresh today tags, best-before dates, shelf-life confidence labels, and substitution logic that respects quality.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="intel-demo">
+            <div class="demo-card">
+                <div class="demo-product">
+                    <div class="demo-img">🥛</div>
+                    <div class="demo-info">
+                        <strong>Organic Full-Fat Milk</strong>
+                        <span>Taanayel Farm · 1L</span>
+                    </div>
+                    <div class="demo-price">LBP 89,000</div>
+                </div>
+                <div class="demo-tags">
+                    <span class="dt allergen">🥛 Dairy</span>
+                    <span class="dt dietary">☪️ Halal</span>
+                    <span class="dt fresh">✅ Fresh today</span>
+                    <span class="dt dietary">🌱 Organic</span>
+                    <span class="dt warning">📅 Exp: 4 days</span>
+                </div>
+            </div>
+
+            <div class="demo-card">
+                <div class="demo-product">
+                    <div class="demo-img">🍕</div>
+                    <div class="demo-info">
+                        <strong>Margherita Pizza</strong>
+                        <span>Roadster Diner</span>
+                    </div>
+                    <div class="demo-price">$12.50</div>
+                </div>
+                <div class="demo-tags">
+                    <span class="dt allergen">🌾 Gluten</span>
+                    <span class="dt allergen">🥛 Dairy</span>
+                    <span class="dt dietary">🥬 Vegetarian</span>
+                </div>
+                <div class="demo-warn">
+                    ⚠️ Contains dairy — conflicts with your saved profile
+                </div>
+            </div>
+
+            <div class="demo-legend">
+                <span class="dl allergen">Allergen</span>
+                <span class="dl dietary">Dietary</span>
+                <span class="dl fresh">Freshness</span>
+                <span class="dl warning">Warning</span>
+            </div>
+        </div>
+    </div>
+</section>
+
+<div class="section-divider"><svg width="100%" height="32" viewBox="0 0 800 32" preserveAspectRatio="xMidYMid meet" fill="none" aria-hidden="true"><line x1="200" y1="16" x2="350" y2="16" stroke="var(--cyan)" stroke-width="1" opacity=".15"/><circle cx="400" cy="16" r="3" fill="var(--cyan)" opacity=".2"/><line x1="450" y1="16" x2="600" y2="16" stroke="var(--cyan)" stroke-width="1" opacity=".15"/></svg></div>
+
+<!-- Fun stat callout -->
+<div class="fun-callout reveal" aria-hidden="true">
+    <div class="fun-callout-inner">
+        <div class="fun-stat">
+            <svg width="28" height="28" viewBox="0 0 28 28" fill="none"><path d="M14 2l3.09 6.26L24 9.27l-5 4.87L20.18 21 14 17.77 7.82 21 9 14.14l-5-4.87 6.91-1.01L14 2z" fill="var(--cyan)" opacity=".8"/></svg>
+            <span class="fun-stat-n">8</span>
+            <span class="fun-stat-l">services, one app</span>
+        </div>
+        <div class="fun-stat-sep"></div>
+        <div class="fun-stat">
+            <svg width="28" height="28" viewBox="0 0 28 28" fill="none"><circle cx="14" cy="14" r="10" stroke="var(--cyan)" stroke-width="2"/><path d="M14 8v6l4 2" stroke="var(--cyan)" stroke-width="2" stroke-linecap="round"/></svg>
+            <span class="fun-stat-n">6 min</span>
+            <span class="fun-stat-l">avg. ETA across Beirut</span>
+        </div>
+        <div class="fun-stat-sep"></div>
+        <div class="fun-stat">
+            <svg width="28" height="28" viewBox="0 0 28 28" fill="none"><path d="M21 10c0 7-7 12-7 12s-7-5-7-12a7 7 0 0114 0z" stroke="var(--cyan)" stroke-width="2"/><circle cx="14" cy="10" r="2.5" fill="var(--cyan)" opacity=".4"/></svg>
+            <span class="fun-stat-n">4+</span>
+            <span class="fun-stat-l">cities at launch</span>
+        </div>
+    </div>
+</div>
+
+<!-- ━━━ SHOPPING EXPANSION ━━━ -->
+<section class="shopping reveal">
+    <div class="sec-head centered">
+        <p class="kicker">Shopping vertical expansion</p>
+        <h2>From your corner store to your full wardrobe.</h2>
+        <p class="sec-sub">Daberni's shopping section expands beyond groceries into a broader urban commerce layer — from daily essentials to fashion, beauty, and gifts.</p>
+    </div>
+
+    <div class="shop-scroll">
+        <div class="shop-track">
+            <div class="sh-card cat-grocery"><span>🛒</span><h4>Groceries &amp; Essentials</h4><p>Daily shopping &amp; neighbourhood staples</p></div>
+            <div class="sh-card cat-pharmacy"><span>💊</span><h4>Pharmacy &amp; Wellness</h4><p>Medications, supplements &amp; personal care</p></div>
+            <div class="sh-card cat-fashion"><span>👗</span><h4>Clothing</h4><p>Size selectors, fit descriptors, returns</p></div>
+            <div class="sh-card cat-shoes"><span>👟</span><h4>Shoes</h4><p>Size availability, swatches &amp; brand info</p></div>
+            <div class="sh-card cat-accessories"><span>👜</span><h4>Accessories</h4><p>Bags, jewelry, belts &amp; suggestions</p></div>
+            <div class="sh-card cat-beauty"><span>✨</span><h4>Beauty &amp; Care</h4><p>Skincare, cosmetics &amp; grooming</p></div>
+            <div class="sh-card cat-home"><span>🏠</span><h4>Home Basics</h4><p>Cleaning, kitchen &amp; essentials</p></div>
+            <div class="sh-card cat-gifts"><span>🎁</span><h4>Gifts &amp; Occasion</h4><p>Curated gifts &amp; special moments</p></div>
+        </div>
+    </div>
+</section>
+
+<div class="section-divider"><svg width="100%" height="32" viewBox="0 0 800 32" preserveAspectRatio="xMidYMid meet" fill="none" aria-hidden="true"><line x1="200" y1="16" x2="350" y2="16" stroke="var(--cyan)" stroke-width="1" opacity=".15"/><circle cx="400" cy="16" r="3" fill="var(--cyan)" opacity=".2"/><line x1="450" y1="16" x2="600" y2="16" stroke="var(--cyan)" stroke-width="1" opacity=".15"/></svg></div>
+
+<!-- ━━━ ACCESSIBILITY ━━━ -->
+<section class="a11y reveal" id="accessibility">
+    <div class="sec-head centered">
+        <p class="kicker" data-i18n="accessibilityKicker">Accessibility</p>
+        <h2 data-i18n="accessibilityTitle">Designed to work for people with major disabilities, not as an afterthought.</h2>
+        <p class="sec-sub" data-i18n="accessibilitySubtitle">The app will be built so people with different needs can request, navigate, pay, and get support independently.</p>
+    </div>
+
+    <div class="a11y-grid">
+        <div class="a11y-card">
+            <div class="a11y-ico"><svg width="32" height="32" viewBox="0 0 32 32" fill="none" aria-hidden="true"><circle cx="16" cy="16" r="12" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="14" r="2.5" fill="currentColor"/><circle cx="20" cy="14" r="2.5" fill="currentColor"/><path d="M10 21c1.5 2 3.5 3 6 3s4.5-1 6-3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></div>
+            <h2 data-i18n="accessibilityVisionTitle">Blind and low-vision</h2>
+            <p data-i18n="accessibilityVisionBody">Screen-reader labels, strong contrast, scalable text, voice guidance, and flows that do not depend on sight alone.</p>
+        </div>
+        <div class="a11y-card">
+            <div class="a11y-ico"><svg width="32" height="32" viewBox="0 0 32 32" fill="none" aria-hidden="true"><path d="M6 16c0-5.523 4.477-10 10-10s10 4.477 10 10" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M10 16c0-3.314 2.686-6 6-6s6 2.686 6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" opacity=".6"/><circle cx="16" cy="16" r="3" fill="currentColor"/><path d="M16 19v7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></div>
+            <h2 data-i18n="accessibilityHearingTitle">Deaf and hard-of-hearing</h2>
+            <p data-i18n="accessibilityHearingBody">Visual status updates, captioned media, text-first communication, and support that does not rely on phone calls.</p>
+        </div>
+        <div class="a11y-card">
+            <div class="a11y-ico"><svg width="32" height="32" viewBox="0 0 32 32" fill="none" aria-hidden="true"><path d="M16 6v4M16 22v4M6 16h4M22 16h4" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/><path d="M9.17 9.17l2.83 2.83M20 20l2.83 2.83M9.17 22.83l2.83-2.83M20 12l2.83-2.83" stroke="currentColor" stroke-width="2" stroke-linecap="round" opacity=".5"/><circle cx="16" cy="16" r="4" stroke="currentColor" stroke-width="2"/></svg></div>
+            <h2 data-i18n="accessibilityMotorTitle">Motor and mobility</h2>
+            <p data-i18n="accessibilityMotorBody">Large tap targets, reduced precision requirements, switch and keyboard access, and enough time to complete actions.</p>
+        </div>
+        <div class="a11y-card">
+            <div class="a11y-ico"><svg width="32" height="32" viewBox="0 0 32 32" fill="none" aria-hidden="true"><circle cx="16" cy="12" r="8" stroke="currentColor" stroke-width="2"/><path d="M12 26c0-2.21 1.79-4 4-4s4 1.79 4 4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M12 10c1-2 2.5-3 4-3s3 1 4 3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" opacity=".5"/><circle cx="13" cy="13" r="1" fill="currentColor" opacity=".5"/><circle cx="19" cy="13" r="1" fill="currentColor" opacity=".5"/></svg></div>
+            <h2 data-i18n="accessibilityCognitiveTitle">Cognitive and neurodivergent</h2>
+            <p data-i18n="accessibilityCognitiveBody">Clear language, predictable navigation, fewer surprises, optional simplified flows, and consistent error recovery.</p>
+        </div>
+        <div class="a11y-card">
+            <div class="a11y-ico"><svg width="32" height="32" viewBox="0 0 32 32" fill="none" aria-hidden="true"><rect x="4" y="10" width="24" height="14" rx="2" stroke="currentColor" stroke-width="2"/><rect x="7" y="14" width="4" height="3" rx=".5" stroke="currentColor" stroke-width="1.5" opacity=".6"/><rect x="14" y="14" width="4" height="3" rx=".5" stroke="currentColor" stroke-width="1.5" opacity=".6"/><rect x="21" y="14" width="4" height="3" rx=".5" stroke="currentColor" stroke-width="1.5" opacity=".6"/><rect x="10" y="19" width="12" height="2.5" rx=".5" stroke="currentColor" stroke-width="1.5" opacity=".4"/></svg></div>
+            <h2 data-i18n="accessibilityAssistiveTitle">Assistive technology</h2>
+            <p data-i18n="accessibilityAssistiveBody">Support for screen readers, keyboard navigation, voice control, reduced motion, and accessible map alternatives.</p>
+        </div>
+    </div>
+
+    <div class="a11y-badges">
+        <span>WCAG 2.2 AA target</span>
+        <span>Arabic &amp; English first</span>
+        <span>Large touch targets</span>
+        <span>Reduced motion support</span>
+        <span>Screen reader tested</span>
+    </div>
+</section>
+
+<!-- ━━━ WAITLIST CTA — CYAN BLOCK ━━━ -->
+<section class="waitlist-block reveal" id="waitlist">
+    <svg class="wl-deco-svg" width="200" height="200" viewBox="0 0 200 200" fill="none" aria-hidden="true">
+        <circle cx="100" cy="100" r="80" stroke="rgba(255,255,255,0.12)" stroke-width="1"/>
+        <circle cx="100" cy="100" r="60" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
+        <circle cx="100" cy="100" r="40" stroke="rgba(255,255,255,0.05)" stroke-width="1"/>
+        <circle cx="100" cy="20" r="4" fill="rgba(255,255,255,0.2)"/>
+        <circle cx="180" cy="100" r="3" fill="rgba(255,255,255,0.15)"/>
+        <circle cx="100" cy="180" r="5" fill="rgba(255,255,255,0.1)"/>
+    </svg>
+    <div class="wl-inner">
+        <div class="wl-copy">
+            <p class="kicker kicker-dark" data-i18n="waitlistKicker">Coming soon</p>
+            <h2 data-i18n="waitlistTitle">Be the first to know when we launch.</h2>
+            <p data-i18n="waitlistBody">Get notified when Daberni is available in your city.</p>
+        </div>
+        <div class="wl-form-wrap">
+            <form id="subscribeForm" class="wl-form">
+                <label class="sr-only" for="subscribeEmail" data-i18n="emailLabel">Email address</label>
+                <input id="subscribeEmail" name="email" type="email" required autocomplete="email"
+                    placeholder="name@example.com" data-i18n-placeholder="emailPlaceholder">
+                <button class="btn-dark" type="submit" data-i18n="waitlistButton">Notify me</button>
+            </form>
+            <p id="subscribeStatus" class="form-status" aria-live="polite"></p>
+        </div>
+    </div>
+</section>
+
+<!-- ━━━ FORMS ━━━ -->
+<section class="forms-row">
+    <!-- Suggestions -->
+    <div class="f-card reveal" id="suggestions">
+        <div class="sec-head left">
+            <p class="kicker" data-i18n="suggestionsKicker">Product suggestions</p>
+            <h2 data-i18n="suggestionsTitle">What should Daberni sort out next?</h2>
+            <p class="sec-sub" data-i18n="suggestionsBody">Tell us what people in your area still solve through calls, DMs, or WhatsApp — and we should handle better.</p>
+        </div>
+        <form id="suggestionForm" class="sug-form">
+            <label class="fld">
+                <span data-i18n="fieldSuggestionName">Your name</span>
+                <input id="suggestionName" name="suggestionName" type="text" placeholder="Rana Haddad" data-i18n-placeholder="suggestionNamePlaceholder">
+            </label>
+            <label class="fld fld-full">
+                <span data-i18n="fieldSuggestion">Your suggestion</span>
+                <textarea id="suggestionText" name="suggestionText" rows="4" required placeholder="Add pharmacy delivery, neighborhood errands, scheduled pickups, or anything else that matters." data-i18n-placeholder="suggestionPlaceholder"></textarea>
+            </label>
+            <button class="btn-outline" type="submit" data-i18n="suggestionButton">Send suggestion</button>
+            <p id="suggestionStatus" class="form-status" aria-live="polite"></p>
+        </form>
+    </div>
+
+    <!-- Operator application -->
+    <div class="f-card f-card-wide reveal" id="operators">
+        <div class="sec-head left">
+            <p class="kicker" data-i18n="operatorsKicker">Operator network</p>
+            <h2 data-i18n="operatorsTitle">Apply as a driver or operator.</h2>
+            <p class="sec-sub" data-i18n="operatorsBody">We are building the first supply network before launch. Apply if you want to drive, deliver, or help run operations from day one.</p>
+        </div>
+        <form id="applicationForm" class="app-form">
+            <div class="form-grid">
+                <label class="fld">
+                    <span data-i18n="fieldName">Full name</span>
+                    <input id="name" name="name" type="text" required placeholder="Mohammad Khoury" data-i18n-placeholder="namePlaceholder">
+                </label>
+                <label class="fld">
+                    <span data-i18n="fieldPhone">Phone number</span>
+                    <input id="phone" name="phone" type="tel" required placeholder="+961 70 000 000" data-i18n-placeholder="phonePlaceholder">
+                </label>
+                <label class="fld">
+                    <span data-i18n="fieldEmail">Email address</span>
+                    <input id="email" name="email" type="email" required placeholder="name@example.com" data-i18n-placeholder="emailPlaceholder">
+                </label>
+                <label class="fld">
+                    <span data-i18n="fieldCity">City / area</span>
+                    <input id="city" name="city" type="text" required placeholder="Beirut" data-i18n-placeholder="cityPlaceholder">
+                </label>
+                <label class="fld">
+                    <span data-i18n="fieldVehicleType">Vehicle type</span>
+                    <select id="vehicleType" name="vehicleType" required>
+                        <option value="" data-i18n="vehicleDefault">Select a vehicle</option>
+                        <option value="motorbike" data-i18n="vehicleMotorbike">Motorbike</option>
+                        <option value="car" data-i18n="vehicleCar">Car</option>
+                        <option value="bike" data-i18n="vehicleBike">Bike</option>
+                        <option value="van" data-i18n="vehicleVan">Van</option>
+                    </select>
+                </label>
+                <label class="fld">
+                    <span data-i18n="fieldVehicleYear">Vehicle year</span>
+                    <input id="vehicleYear" name="vehicleYear" type="number" min="1990" max="2035" required placeholder="2021">
+                </label>
+                <label class="fld">
+                    <span data-i18n="fieldLicense">License number</span>
+                    <input id="licenseNumber" name="licenseNumber" type="text" required placeholder="1234567">
+                </label>
+                <label class="fld">
+                    <span data-i18n="fieldExperience">Years of experience</span>
+                    <select id="yearsExperience" name="yearsExperience" required>
+                        <option value="" data-i18n="experienceDefault">Select experience</option>
+                        <option value="0-1" data-i18n="experienceOne">0 to 1 year</option>
+                        <option value="2-3" data-i18n="experienceTwo">2 to 3 years</option>
+                        <option value="4-6" data-i18n="experienceThree">4 to 6 years</option>
+                        <option value="7+" data-i18n="experienceFour">7+ years</option>
+                    </select>
+                </label>
+                <label class="fld">
+                    <span data-i18n="fieldAvailability">Availability</span>
+                    <select id="availability" name="availability" required>
+                        <option value="" data-i18n="availabilityDefault">Select availability</option>
+                        <option value="full-time" data-i18n="availabilityFull">Full-time</option>
+                        <option value="part-time" data-i18n="availabilityPart">Part-time</option>
+                        <option value="weekends" data-i18n="availabilityWeekends">Weekends</option>
+                        <option value="evenings" data-i18n="availabilityEvenings">Evenings</option>
+                    </select>
+                </label>
+            </div>
+
+            <fieldset class="chk-group">
+                <legend data-i18n="platformsLegend">Existing platform experience</legend>
+                <label><input type="checkbox" name="platforms" value="uber"> Uber</label>
+                <label><input type="checkbox" name="platforms" value="careem"> Careem</label>
+                <label><input type="checkbox" name="platforms" value="toters"> Toters</label>
+                <label><input type="checkbox" name="platforms" value="wakilni"> Wakilni</label>
+                <label><input type="checkbox" name="platforms" value="none"> None yet</label>
+            </fieldset>
+
+            <label class="fld fld-full">
+                <span data-i18n="fieldAdditional">Additional information</span>
+                <textarea id="additionalInfo" name="additionalInfo" rows="4" placeholder="Tell us what role you want to play, which areas you cover, and anything else we should know." data-i18n-placeholder="additionalPlaceholder"></textarea>
+            </label>
+
+            <button class="btn-solid btn-submit" type="submit" data-i18n="applicationButton">Submit application</button>
+            <p id="applicationStatus" class="form-status" aria-live="polite"></p>
+        </form>
+    </div>
+</section>
+
+</main>
+
+<!-- ━━━ FOOTER ━━━ -->
+<footer class="footer">
+    <svg class="footer-wave" width="100%" height="24" viewBox="0 0 1440 24" preserveAspectRatio="none" fill="none" aria-hidden="true">
+        <path d="M0 12C240 0 480 24 720 12C960 0 1200 24 1440 12V24H0V12Z" fill="var(--cyan)" opacity="0.06"/>
+    </svg>
+    <div class="footer-inner">
+        <div class="footer-left">
+            <div class="footer-logo">
+                <span class="logo-hex sm">D</span>
+                <span class="logo-name">Daberni</span>
+            </div>
+            <p data-i18n="footerText">Designed around the pace, density, and daily friction of life in Lebanon.</p>
+        </div>
+        <nav class="footer-nav" aria-label="Footer">
+            <a href="#services" data-i18n="footerServices">Services</a>
+            <a href="#waitlist" data-i18n="footerWaitlist">Waitlist</a>
+            <a href="#operators" data-i18n="footerOperators">Operators</a>
+            <a href="#accessibility">Accessibility</a>
+        </nav>
+    </div>
+    <div class="footer-bottom">© 2026 Daberni. Lebanon, sorted.</div>
+</footer>
+
+<!-- ━━━ SERVICE MODAL ━━━ -->
+<div id="serviceModal" class="modal" aria-hidden="true">
+    <div class="modal-backdrop" data-close-modal="true"></div>
+    <div class="modal-panel" role="dialog" aria-modal="true" aria-labelledby="serviceModalTitle">
+        <svg class="modal-deco" width="250" height="250" viewBox="0 0 250 250" fill="none" aria-hidden="true">
+            <circle cx="200" cy="50" r="100" stroke="var(--cyan)" stroke-width=".5" opacity=".15"/>
+            <circle cx="200" cy="50" r="60" stroke="var(--cyan)" stroke-width=".5" opacity=".1"/>
+            <circle cx="200" cy="50" r="25" stroke="var(--purple)" stroke-width=".5" opacity=".12"/>
+            <path d="M150 0Q200 50 250 20" stroke="var(--cyan)" stroke-width=".5" opacity=".08" fill="none"/>
+        </svg>
+        <div class="modal-top">
+            <span id="serviceModalEyebrow" class="modal-eyebrow"></span>
+            <button class="modal-close" type="button" aria-label="Close" data-close-modal="true">×</button>
+        </div>
+        <div class="modal-hero">
+            <div class="modal-copy">
+                <h2 id="serviceModalTitle"></h2>
+                <p id="serviceModalOverview" class="modal-overview"></p>
+            </div>
+            <div class="modal-arts">
+                <img id="serviceModalPrimaryArt" class="modal-art primary" alt="">
+                <img id="serviceModalSecondaryArt" class="modal-art secondary" alt="">
+            </div>
+        </div>
+        <div class="modal-body">
+            <section class="modal-sec modal-sec-main">
+                <h3 id="serviceModalHowLabel"></h3>
+                <ol id="serviceModalSteps" class="modal-list numbered"></ol>
+            </section>
+            <div class="modal-side">
+                <section class="modal-sec">
+                    <h3 id="serviceModalExamplesLabel"></h3>
+                    <ul id="serviceModalExamples" class="modal-list"></ul>
+                </section>
+                <section class="modal-sec">
+                    <h3 id="serviceModalDetailsLabel"></h3>
+                    <div id="serviceModalDetails" class="modal-chips"></div>
+                </section>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="dataStore.js"></script>
+<script src="script.js"></script>
 </body>
 </html>
