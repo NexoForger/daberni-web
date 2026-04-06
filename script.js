@@ -317,6 +317,13 @@ document.addEventListener('DOMContentLoaded', () => {
     initSubscribeForm();
     initSuggestionForm();
     initApplicationForm();
+    initHamburger();
+    initCountUp();
+    initScrollSpy();
+    initScrollAndNav();
+    initPhoneCarousel();
+    initParallax();
+    initFormValidation();
 });
 
 const serviceModalContent = {
@@ -955,4 +962,234 @@ function getMessage(key) {
 
     const language = document.documentElement.lang === 'ar' ? 'ar' : 'en';
     return messages[key][language];
+}
+
+/* ═══════════════════════════════════
+   HAMBURGER MENU
+═══════════════════════════════════ */
+function initHamburger() {
+    const btn = document.getElementById('hamburger');
+    const menu = document.getElementById('mobileMenu');
+    if (!btn || !menu) return;
+
+    function toggle() {
+        const open = !menu.classList.contains('is-open');
+        menu.classList.toggle('is-open', open);
+        btn.classList.toggle('is-open', open);
+        btn.setAttribute('aria-expanded', open);
+        document.body.style.overflow = open ? 'hidden' : '';
+    }
+
+    btn.addEventListener('click', toggle);
+
+    menu.querySelectorAll('a').forEach(link => {
+        link.addEventListener('click', () => {
+            menu.classList.remove('is-open');
+            btn.classList.remove('is-open');
+            btn.setAttribute('aria-expanded', 'false');
+            document.body.style.overflow = '';
+        });
+    });
+
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && menu.classList.contains('is-open')) {
+            toggle();
+        }
+    });
+}
+
+/* ═══════════════════════════════════
+   COUNT UP ANIMATION
+═══════════════════════════════════ */
+function initCountUp() {
+    const stats = document.querySelectorAll('.stat-n[data-count-to]');
+    if (!stats.length) return;
+
+    const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+                stats.forEach(el => {
+                    const target = parseInt(el.dataset.countTo, 10);
+                    if (prefersReduced) {
+                        el.textContent = target;
+                        return;
+                    }
+                    const duration = 1500;
+                    const start = performance.now();
+
+                    function tick(now) {
+                        const elapsed = now - start;
+                        const progress = Math.min(elapsed / duration, 1);
+                        // ease out cubic
+                        const eased = 1 - Math.pow(1 - progress, 3);
+                        el.textContent = Math.round(eased * target);
+                        if (progress < 1) requestAnimationFrame(tick);
+                    }
+                    requestAnimationFrame(tick);
+                });
+                observer.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.5 });
+
+    const statsContainer = document.querySelector('.hero-stats');
+    if (statsContainer) observer.observe(statsContainer);
+}
+
+/* ═══════════════════════════════════
+   SCROLL SPY — ACTIVE NAV
+═══════════════════════════════════ */
+function initScrollSpy() {
+    const sections = document.querySelectorAll('section[id]');
+    const navLinks = document.querySelectorAll('.nav-links a[href^="#"]');
+    if (!sections.length || !navLinks.length) return;
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+                const id = entry.target.id;
+                navLinks.forEach(link => {
+                    link.classList.toggle('is-active', link.getAttribute('href') === '#' + id);
+                });
+            }
+        });
+    }, { threshold: 0.2, rootMargin: '-80px 0px -50% 0px' });
+
+    sections.forEach(section => observer.observe(section));
+}
+
+/* ═══════════════════════════════════
+   SCROLL-TO-TOP + NAV FROST
+═══════════════════════════════════ */
+function initScrollAndNav() {
+    const scrollBtn = document.getElementById('scrollTop');
+    const nav = document.querySelector('.nav');
+    if (!scrollBtn && !nav) return;
+
+    let ticking = false;
+
+    function onScroll() {
+        if (ticking) return;
+        ticking = true;
+        requestAnimationFrame(() => {
+            const y = window.scrollY;
+            if (scrollBtn) {
+                scrollBtn.classList.toggle('is-visible', y > 600);
+            }
+            if (nav) {
+                nav.classList.toggle('is-scrolled', y > 10);
+            }
+            ticking = false;
+        });
+    }
+
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll(); // set initial state
+
+    if (scrollBtn) {
+        scrollBtn.addEventListener('click', () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+    }
+}
+
+/* ═══════════════════════════════════
+   PHONE SCREEN CAROUSEL
+═══════════════════════════════════ */
+function initPhoneCarousel() {
+    const screens = document.querySelectorAll('.phone-screen');
+    if (screens.length < 2) return;
+
+    // Only run on desktop where hero-light is visible
+    const heroLight = document.querySelector('.hero-light');
+    if (!heroLight || getComputedStyle(heroLight).display === 'none') return;
+
+    let current = 0;
+    const total = screens.length;
+
+    setInterval(() => {
+        screens[current].classList.remove('is-active');
+        current = (current + 1) % total;
+        screens[current].classList.add('is-active');
+    }, 3500);
+}
+
+/* ═══════════════════════════════════
+   PARALLAX ON HERO
+═══════════════════════════════════ */
+function initParallax() {
+    const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (prefersReduced) return;
+
+    const headline = document.querySelector('.hero-headline');
+    const phone = document.querySelector('.phone-frame');
+    const hero = document.querySelector('.hero');
+    if (!headline || !hero) return;
+
+    // Only on desktop
+    if (window.innerWidth < 1100) return;
+
+    let ticking = false;
+
+    function onScroll() {
+        if (ticking) return;
+        ticking = true;
+        requestAnimationFrame(() => {
+            const rect = hero.getBoundingClientRect();
+            if (rect.bottom > 0 && rect.top < window.innerHeight) {
+                const ratio = -rect.top / hero.offsetHeight;
+                headline.style.transform = `translateY(${ratio * 40}px)`;
+                if (phone) {
+                    phone.style.transform = `translateY(${ratio * 60}px)`;
+                }
+            }
+            ticking = false;
+        });
+    }
+
+    window.addEventListener('scroll', onScroll, { passive: true });
+}
+
+/* ═══════════════════════════════════
+   FORM VALIDATION POLISH
+═══════════════════════════════════ */
+function initFormValidation() {
+    // Email field validation
+    const emailInput = document.getElementById('subEmail');
+    if (emailInput) {
+        emailInput.addEventListener('input', () => {
+            const val = emailInput.value.trim();
+            if (!val) {
+                emailInput.classList.remove('input-error', 'input-valid');
+            } else if (emailInput.validity.valid) {
+                emailInput.classList.remove('input-error');
+                emailInput.classList.add('input-valid');
+            } else {
+                emailInput.classList.remove('input-valid');
+                emailInput.classList.add('input-error');
+            }
+        });
+    }
+
+    // Application form fields
+    const appForm = document.getElementById('applicationForm');
+    if (appForm) {
+        const requiredFields = appForm.querySelectorAll('[required]');
+        requiredFields.forEach(field => {
+            field.addEventListener('input', () => {
+                const val = field.value.trim();
+                if (!val) {
+                    field.classList.remove('input-error', 'input-valid');
+                } else if (field.validity.valid) {
+                    field.classList.remove('input-error');
+                    field.classList.add('input-valid');
+                } else {
+                    field.classList.remove('input-valid');
+                    field.classList.add('input-error');
+                }
+            });
+        });
+    }
 }
